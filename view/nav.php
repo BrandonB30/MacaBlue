@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-custom">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="./assets/img/MacaBlue.jpg" alt="Logo" style="height: 40px" class="brand-image img-circle elevation-3" style="opacity: .8;">
+            <img src="./assets/img/MacaBlue.jpg" alt="Logo" style="height: 40px; border-radius:40px;">
             MacaBlue
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
