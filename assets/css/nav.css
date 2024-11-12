@@ -1,0 +1,62 @@
+.icon-text {
+    color: var(--fucsia-claro);
+}
+
+.navbar-custom {
+    background-color: var(--fondo-oscuro); 
+    padding: 1rem;
+}
+
+.navbar-custom .navbar-brand {
+    color: var(--fucsia-claro);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    color: var(--fucsia-claro);
+    margin-right: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+    color: var(--fucsia-pastel);
+}
+
+.navbar-custom .navbar-nav .nav-link.active {
+    color: var(--fucsia-pastel);
+    font-weight: bold;
+}
+
+.navbar-custom .form-control {
+    border-radius: 0;
+}
+
+.navbar-custom .btn-outline-success {
+    color: var(--fucsia-claro);
+    border-color: var(--fucsia-pastel);
+}
+
+.navbar-custom .btn-outline-success:hover {
+    background-color: var(--fucsia-pastel);
+    border-color: var(--fucsia-pastel);
+}
+
+.navbar-custom .navbar-toggler {
+    border-color: var(--fucsia-claro);
+}
+
+.navbar-custom .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28var(--fucsia-claro), 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-custom .nav-link i {
+    color: var(--fucsia-claro);
+    font-size: 1.2rem;
+    margin-left: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-custom .nav-link i:hover {
+    color: var(--fucsia-pastel);
+}
