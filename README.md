@@ -21,7 +21,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tu_usuario/MacaBlue.git
+   git clone https://github.com/BrandonB30/MacaBlue.git
    ```
 2. **Mover el proyecto a la carpeta htdocs de XAMPP:**
    ```bash
@@ -31,7 +31,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 4. **Importar la base de datos:**
    - Accede a `http://localhost/phpmyadmin/`
    - Crea una base de datos llamada `MacaBlue`
-   - Importa el archivo `MacaBlue.sql` que se encuentra en el repositorio
+   - Importa el archivo `database.sql` que se encuentra en `admin/model`
 5. **Acceder a la plataforma:**
    - **Login Admin:** `http://localhost/MacaBlue/admin/login.php`
    - **Vista Cliente:** `http://localhost/MacaBlue/`
