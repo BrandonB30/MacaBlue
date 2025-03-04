@@ -4,9 +4,8 @@ MacaBlue es una plataforma de comercio electrónico enfocada en la venta de ropa
 
 ## 📌 Tecnologías utilizadas
 
-- **HTML**
 - **CSS**
-- **JavaScript**
+- **ASTRO**
 - **PHP**
 - **XAMPP** (para el servidor local y base de datos)
 
