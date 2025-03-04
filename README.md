@@ -39,10 +39,10 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 ## 📸 Capturas de pantalla
 
 ### Panel de Administración
-![Admin Panel](assets/images/Panel Admin.jpg)
+![Admin Panel](https://github.com/BrandonB30/MacaBlue/blob/main/assets/images/Panel%20Admin.jpg)
 
 ### Página de Productos
-![Productos](assets/images/Panel User.jpg)
+![Productos](https://github.com/BrandonB30/MacaBlue/blob/main/assets/images/Panel%20User.jpg)
 
 ## 👥 Autores
 
