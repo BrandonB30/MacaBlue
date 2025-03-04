@@ -21,7 +21,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tu_usuario/MacaBlue.git
+   git clone https://github.com/BrandonB30/MacaBlue.git
    ```
 2. **Mover el proyecto a la carpeta htdocs de XAMPP:**
    ```bash
