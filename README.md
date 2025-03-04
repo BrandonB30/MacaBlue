@@ -39,10 +39,10 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 ## 📸 Capturas de pantalla
 
 ### Panel de Administración
-![Admin Panel](Panel Admin.jpg)
+![Admin Panel](assets/images/Panel Admin.jpg)
 
 ### Página de Productos
-![Productos](Panel User.jpg)
+![Productos](assets/images/Panel User.jpg)
 
 ## 👥 Autores
 
