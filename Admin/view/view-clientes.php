@@ -1,15 +1,21 @@
+<?php
+include_once '../config/conexion.php';
+include_once '../model/model-cliente.php';
+
+$database = new Database();
+$db = $database->getConnection();
+$cliente = new Cliente($db);
+
+$cliente = $cliente->readAll();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Macablue | Clientes Registrados</title>
-    <link rel="shortcut icon" href="./assets/img/favicon.png" type="image/x-icon">
+    <title>Macablue | Admin - Gestión de clientes</title>
+    <link rel="shortcut icon" href="../assets/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="AdminLTE v4 | Dashboard">
-    <meta name="author" content="ColorlibHQ">
-    <meta name="description" content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS.">
-    <meta name="keywords" content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/styles/overlayscrollbars.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
@@ -21,148 +27,190 @@
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">
         <?php
-        // Barra de navegación
         include 'nav.php';
-        // Menu lateral
         include 'menu-lateral.php';
         ?>
 
-        <div class="app-content mt-5">
-            <div class="container-fluid">
-                <!-- Header de la tabla de clientes -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="h4">Clientes Registrados</h2>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addClientModal">
-                        <i class="bi bi-person-plus"></i> Añadir Cliente
-                    </button>
-                </div>
+        <div class="container my-4">
+            <h2 class="text-center mb-4">Gestión de clientes</h2>
 
-                <!-- Tabla de clientes -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover align-middle" id="clientTable">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Email</th>
-                                        <th>Teléfono</th>
-                                        <th>Fecha de Registro</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Ejemplo de fila de cliente -->
-                                    <tr>
-                                        <td>Juan Pérez</td>
-                                        <td>juan.perez@example.com</td>
-                                        <td>(123) 456-7890</td>
-                                        <td>01/01/2023</td>
-                                        <td><span class="badge bg-success">Activo</span></td>
-                                        <td>
-                                            <button class="btn btn-info btn-sm me-2"><i class="bi bi-eye"></i> Ver</button>
-                                            <button class="btn btn-warning btn-sm me-2"><i class="bi bi-pencil"></i> Editar</button>
-                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ana García</td>
-                                        <td>ana.garcia@example.com</td>
-                                        <td>(987) 654-3210</td>
-                                        <td>15/02/2023</td>
-                                        <td><span class="badge bg-warning">Inactivo</span></td>
-                                        <td>
-                                            <button class="btn btn-info btn-sm me-2"><i class="bi bi-eye"></i> Ver</button>
-                                            <button class="btn btn-warning btn-sm me-2"><i class="bi bi-pencil"></i> Editar</button>
-                                            <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <!-- Formulario para agregar o editar Clientes -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 id="formHeader">Agregar Nuevo cliente</h5>
                 </div>
-
-                <!-- Modal para añadir cliente -->
-                <div class="modal fade" id="addClientModal" tabindex="-1" aria-labelledby="addClientModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addClientModalLabel">Añadir Nuevo Cliente</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="card-body">
+                    <form id="formCliente" method="POST" action="../controller/controllercliente.php">
+                        <input type="hidden" name="cliente_id" id="cliente_id">
+                        <input type="hidden" name="action" id="formAction" value="addUser">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombreCliente" class="form-label">Nombre</label>
+                                <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" placeholder="Ej. John" required>
                             </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="clientName" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="clientName" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="clientEmail" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="clientEmail" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="clientPhone" class="form-label">Teléfono</label>
-                                        <input type="tel" class="form-control" id="clientPhone">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="clientStatus" class="form-label">Estado</label>
-                                        <select class="form-select" id="clientStatus">
-                                            <option selected>Activo</option>
-                                            <option>Inactivo</option>
-                                        </select>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar Cliente</button>
-                                    </div>
-                                </form>
+                            <div class="col-md-6 mb-3">
+                                <label for="apellidoCliente" class="form-label">Apellido</label>
+                                <input type="text" name="apellidoCliente" class="form-control" id="apellidoCliente" placeholder="Ej. Doe" required>
                             </div>
                         </div>
+                        <div class="mb-3">
+                            <label for="emailCliente" class="form-label">Correo Electrónico</label>
+                            <input type="email" name="emailCliente" class="form-control" id="emailCliente" placeholder="Cliente@ejemplo.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordCliente" class="form-label">Contraseña</label>
+                            <input type="password" name="passwordCliente" class="form-control" id="passwordCliente" placeholder="Contraseña" required>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" id="submitButton" class="btn btn-primary">Agregar Cliente</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Tabla de Clientes -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Lista de Clientes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Email</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($row = $cliente->fetch(PDO::FETCH_ASSOC)) : ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($row['nombreCliente']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['apellidoCliente']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['emailCliente']); ?></td>
+                                        <td>
+                                            <button class="btn btn-warning btn-sm me-2" onclick="editUser(<?php echo $row['cliente_id']; ?>)">
+                                                <i class="bi bi-pencil"></i> Editar
+                                            </button>
+                                            <button class="btn btn-danger btn-sm" onclick="confirmDeleteUser(<?php echo $row['cliente_id']; ?>)">
+                                                <i class="bi bi-trash"></i> Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <!-- Fin de Modal para añadir cliente -->
             </div>
         </div>
 
-        <!-- Pie de página -->
-        <?php include_once 'footer.php'; ?>
+        <?php include 'footer.php'; ?>
     </div>
 
-    <!-- JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Custom Script -->
     <script>
-        // Script para SweetAlert en la acción de eliminar
-        document.querySelectorAll('.btn-danger').forEach(button => {
-            button.addEventListener('click', function() {
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "Esta acción no se puede deshacer.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Sí, eliminar',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire(
-                            'Eliminado',
-                            'El cliente ha sido eliminado.',
-                            'success'
-                        )
-                        // Aquí puedes agregar la lógica para eliminar el cliente
-                    }
+                    function validarFormulario() {
+                let nombre = document.getElementById('nombreCliente').value.trim();
+                let apellido = document.getElementById('apellidoCliente').value.trim();
+                let email = document.getElementById('emailCliente').value.trim();
+                let password = document.getElementById('passwordCliente').value.trim();
+
+                if (nombre === '' || apellido === '' || email === '' || password === '') {
+                    Swal.fire('Error', 'Todos los campos son obligatorios.', 'error');
+                    return false;
+                }
+
+                // Validar formato de correo electrónico
+                let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    Swal.fire('Error', 'Ingrese un correo electrónico válido.', 'error');
+                    return false;
+                }
+
+                return true;
+            }
+
+        document.getElementById('formCliente').addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (validarFormulario()) {
+                const formData = new FormData(this);
+                fetch('../controller/controllercliente.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.fire(data.status === "success" ? 'Éxito' : 'Error', data.message, data.status)
+                        .then(() => data.status === "success" && location.reload());
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    Swal.fire('Error', 'Ocurrió un error al procesar la solicitud.', 'error');
                 });
-            });
+            }
         });
+
+        function confirmDeleteUser(userId) {
+            Swal.fire({
+                title: '¿Está seguro?',
+                text: "Esta acción no se puede deshacer",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const formData = new FormData();
+                    formData.append("action", "deleteUser");
+                    formData.append("cliente_id", userId);
+
+                    fetch('../controller/controllercliente.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        Swal.fire(data.status === "success" ? 'Éxito' : 'Error', data.message, data.status)
+                            .then(() => data.status === "success" && location.reload());
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        Swal.fire('Error', 'Ocurrió un error al intentar eliminar el cliente.', 'error');
+                    });
+                }
+            });
+        }
+
+        function editUser(userId) {
+            fetch(`../controller/controllercliente.php?action=getUser&id=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        Swal.fire('Error', data.error, 'error');
+                    } else {
+                        document.getElementById('cliente_id').value = data.cliente_id;
+                        document.getElementById('nombreCliente').value = data.nombreCliente;
+                        document.getElementById('apellidoCliente').value = data.apellidoCliente;
+                        document.getElementById('emailCliente').value = data.emailCliente;
+                        document.getElementById('passwordCliente').required = false;
+                        document.getElementById('formAction').value = 'editUser';
+                        document.getElementById('submitButton').innerText = 'Actualizar Cliente';
+                        document.getElementById('formHeader').innerText = 'Editar Cliente';
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    Swal.fire('Error', 'Error al obtener los datos del cliente.', 'error');
+                });
+        }
     </script>
 </body>
-
 </html>
