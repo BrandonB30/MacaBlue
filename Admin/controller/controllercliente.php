@@ -14,7 +14,7 @@ header('Content-Type: application/json');
 
 try {
     switch ($action) {
-        case 'addClient':
+        case 'addUser': // Cambiado de 'addClient' a 'addUser' para que coincida con tu HTML
             $cliente->nombreCliente = $_POST['nombreCliente'];
             $cliente->apellidoCliente = $_POST['apellidoCliente'];
             $cliente->emailCliente = $_POST['emailCliente'];
@@ -27,7 +27,7 @@ try {
             }
             break;
 
-        case 'editClient':
+        case 'editUser': // Cambiado de 'editClient' a 'editUser' para que coincida con tu HTML
             $cliente->cliente_id = $_POST['cliente_id'];
             $cliente->nombreCliente = $_POST['nombreCliente'];
             $cliente->apellidoCliente = $_POST['apellidoCliente'];
@@ -41,7 +41,7 @@ try {
             }
             break;
 
-        case 'deleteClient':
+        case 'deleteUser': // Cambiado de 'deleteClient' a 'deleteUser' para que coincida con tu HTML
             $cliente->cliente_id = $_POST['cliente_id'];
             
             if ($cliente->delete()) {
@@ -51,22 +51,29 @@ try {
             }
             break;
 
-            case 'getUser':
-                if (isset($_GET['id'])) {
-                    $cliente->cliente_id = $_GET['id'];
-                    
-                    $query = "SELECT cliente_id, nombreCliente, apellidoCliente, emailCliente, rolCliente FROM clientes WHERE cliente_id = :cliente_id";
-                    $stmt = $db->prepare($query);
-                    $stmt->bindParam(":cliente_id", $cliente->cliente_id);
-                    
-                    if ($stmt->execute()) {
-                        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo json_encode($user ? $user : ["error" => "Cliente no encontrado"]);
+        case 'getUser':
+            if (isset($_GET['id'])) {
+                $cliente->cliente_id = $_GET['id'];
+                
+                // Remueve rolCliente si no existe en tu tabla
+                $query = "SELECT cliente_id, nombreCliente, apellidoCliente, emailCliente FROM clientes WHERE cliente_id = :cliente_id";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(":cliente_id", $cliente->cliente_id);
+                
+                if ($stmt->execute()) {
+                    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if ($user) {
+                        echo json_encode($user);
                     } else {
-                        echo json_encode(["error" => "Error al obtener los datos del usuario"]);
+                        echo json_encode(["error" => "Cliente no encontrado"]);
                     }
+                } else {
+                    echo json_encode(["error" => "Error al obtener los datos del usuario"]);
                 }
-                break;
+            } else {
+                echo json_encode(["error" => "ID de cliente no proporcionado"]);
+            }
+            break;
 
         default:
             echo json_encode(["status" => "error", "message" => "Acción no válida"]);

@@ -75,10 +75,21 @@ class Cliente {
     }
 
     public function delete() {
-        $query = "DELETE FROM " . $this->table_name . " WHERE cliente_id = :cliente_id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":cliente_id", $this->cliente_id);
-        return $stmt->execute();
+        try {
+            // Primero eliminar registros relacionados en la tabla carrito
+            $query = "DELETE FROM carrito WHERE usuario_id = :cliente_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":cliente_id", $this->cliente_id);
+            $stmt->execute();
+            
+            // Luego eliminar el cliente
+            $query = "DELETE FROM " . $this->table_name . " WHERE cliente_id = :cliente_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":cliente_id", $this->cliente_id);
+            return $stmt->execute();
+        } catch(PDOException $e) {
+            throw new Exception("Error al eliminar: " . $e->getMessage());
+        }
     }
 }
 ?>

@@ -102,6 +102,11 @@ if (isset($_POST['agregar_al_carrito'])) {
                 <a class="nav-link me-3" href="/MacaBlue/view/carrito.php" style="color: var(--fondo-claro);">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
+                
+                <!-- Icono de pedidos -->
+                <a class="nav-link me-3" href="/MacaBlue/view/pedido.php" style="color: var(--fondo-claro);">
+                    <i class="fas fa-box"></i> <!-- Ícono de caja de pedidos -->
+                </a>
 
                 <!-- Menú desplegable para usuario logueado -->
                 <?php if (isset($_SESSION['cliente_id'])) : ?>

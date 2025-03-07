@@ -6,8 +6,11 @@ $database = new Database();
 $db = $database->getConnection();
 $cliente = new Cliente($db);
 
-$cliente = $cliente->readAll();
-?>
+// Cambia esta línea
+$resultados = $cliente->readAll();
+
+// Si la línea 88 es el bucle while, asegúrate de que quede así:
+// <?php while ($row = $resultados->fetch(PDO::FETCH_ASSOC)) : ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -85,7 +88,7 @@ $cliente = $cliente->readAll();
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row = $cliente->fetch(PDO::FETCH_ASSOC)) : ?>
+                                <?php while ($row = $resultados->fetch(PDO::FETCH_ASSOC)) : ?>
                                     <tr>
                                         <td><?php echo htmlspecialchars($row['nombreCliente']); ?></td>
                                         <td><?php echo htmlspecialchars($row['apellidoCliente']); ?></td>
@@ -115,7 +118,7 @@ $cliente = $cliente->readAll();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-                    function validarFormulario() {
+                function validarFormulario() {
                 let nombre = document.getElementById('nombreCliente').value.trim();
                 let apellido = document.getElementById('apellidoCliente').value.trim();
                 let email = document.getElementById('emailCliente').value.trim();
