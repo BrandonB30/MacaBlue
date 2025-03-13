@@ -1,7 +1,10 @@
 <?php
 include_once '../config/conexion.php';
 include_once '../model/model-usuarios.php';
+require_once '../middleware/AuthMiddleware.php';
 
+// Verificar permisos (solo Administrador puede acceder)
+AuthMiddleware::requireRole('Administrador');
 $database = new Database();
 $db = $database->getConnection();
 $usuario = new Usuario($db);

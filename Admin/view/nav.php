@@ -1,5 +1,8 @@
 <?php
-session_start(); // Esto debe ir al inicio del archivo para acceder a $_SESSION
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+$userRole = isset($_SESSION['user_role']) ? $_SESSION['user_role'] : '';
 ?>
 
 <nav class="app-header navbar navbar-expand bg-body">
@@ -48,6 +51,11 @@ session_start(); // Esto debe ir al inicio del archivo para acceder a $_SESSION
                         // Mostrar el nombre del usuario si está autenticado
                         if (isset($_SESSION['user_name'])) {
                             echo htmlspecialchars($_SESSION['user_name']);
+                        } else {
+                            echo "Usuario";
+                        }
+                        if (isset($_SESSION['user_role'])) {
+                            echo htmlspecialchars($_SESSION['user_role']);
                         } else {
                             echo "Usuario";
                         }

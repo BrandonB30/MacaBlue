@@ -29,12 +29,16 @@ try {
         $_SESSION['user_id'] = $user['usuario_id'];
         $_SESSION['username'] = $user['emailUsuario'];
         $_SESSION['user_name'] = $user['nombreUsuario'] . ' ' . $user['apellidoUsuario'];
+        
+        // Guardar el rol del usuario en la sesión (tal como aparece en la base de datos)
+        $_SESSION['user_role'] = $user['rolUsuario']; // 'Administrador', 'Empleado', o 'Supervisor'
 
         // Incluir URL de redirección en la respuesta JSON
         echo json_encode([
             "status" => "success",
             "message" => "Inicio de sesión exitoso.",
-            "redirect" => "../view/view-dashboard.php" // URL del dashboard
+            "redirect" => "../view/view-dashboard.php", // URL del dashboard
+            "role" => $user['rolUsuario'] 
         ]);
     } else {
         echo json_encode(["status" => "error", "message" => "Usuario o contraseña incorrectos."]);
@@ -42,3 +46,4 @@ try {
 } catch (Exception $e) {
     echo json_encode(["status" => "error", "message" => "Error en el servidor: " . $e->getMessage()]);
 }
+?>

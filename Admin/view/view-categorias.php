@@ -1,3 +1,12 @@
+<?php
+// Incluir el middleware
+require_once '../middleware/AuthMiddleware.php';
+
+// Verificar permisos (solo admin puede acceder)
+AuthMiddleware::requireRole('Administrador');
+
+// Continuar con el resto del código de la vista...
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
