@@ -24,9 +24,6 @@ $userRole = isset($_SESSION['user_role']) ? $_SESSION['user_role'] : '';
                     <span class="navbar-badge badge text-bg-warning">15</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                    <span class="dropdown-item dropdown-header">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
                         <i class="bi bi-envelope me-2"></i> 4 new messages
                         <span class="float-end text-secondary fs-7">3 mins</span>
                     </a>
@@ -47,17 +44,19 @@ $userRole = isset($_SESSION['user_role']) ? $_SESSION['user_role'] : '';
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
                     <span class="d-none d-md-inline me-1">
-                        <?php
+                    <?php
                         // Mostrar el nombre del usuario si está autenticado
                         if (isset($_SESSION['user_name'])) {
                             echo htmlspecialchars($_SESSION['user_name']);
                         } else {
                             echo "Usuario";
                         }
+
+                        // Agregar un espacio solo si el rol también está definido
                         if (isset($_SESSION['user_role'])) {
-                            echo htmlspecialchars($_SESSION['user_role']);
+                            echo " " . htmlspecialchars($_SESSION['user_role']);
                         } else {
-                            echo "Usuario";
+                            echo " Usuario";
                         }
                         ?>
                     </span>

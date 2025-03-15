@@ -1,15 +1,11 @@
-CREATE DATABASE IF NOT EXISTS macablue;
-
-USE macablue;
-
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2024 a las 10:54:52
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Mar 15, 2025 at 04:28 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -22,33 +18,37 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `macablue`
+-- Database: `macablue`
 --
+CREATE DATABASE IF NOT EXISTS `macablue` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `macablue`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `carrito`
+-- Table structure for table `carrito`
 --
 
 CREATE TABLE `carrito` (
   `carrito_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `producto_id` int(11) NOT NULL,
-  `cantidad` int(11) DEFAULT 1
+  `cantidad` int(11) NOT NULL DEFAULT 1,
+  `fecha_agregado` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `carrito`
+-- Dumping data for table `carrito`
 --
 
-INSERT INTO `carrito` (`carrito_id`, `usuario_id`, `producto_id`, `cantidad`) VALUES
-(1, 1, 26, 1);
+INSERT INTO `carrito` (`carrito_id`, `usuario_id`, `producto_id`, `cantidad`, `fecha_agregado`) VALUES
+(2, 2, 27, 1, '2025-03-07 16:22:46'),
+(3, 2, 33, 1, '2025-03-07 16:22:52');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categorias`
+-- Table structure for table `categorias`
 --
 
 CREATE TABLE `categorias` (
@@ -59,7 +59,7 @@ CREATE TABLE `categorias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `categorias`
+-- Dumping data for table `categorias`
 --
 
 INSERT INTO `categorias` (`categoria_id`, `nombreCategoria`, `subcategorias`, `created_at`) VALUES
@@ -68,7 +68,7 @@ INSERT INTO `categorias` (`categoria_id`, `nombreCategoria`, `subcategorias`, `c
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clientes`
+-- Table structure for table `clientes`
 --
 
 CREATE TABLE `clientes` (
@@ -81,16 +81,62 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `clientes`
+-- Dumping data for table `clientes`
 --
 
 INSERT INTO `clientes` (`cliente_id`, `nombreCliente`, `apellidoCliente`, `emailCliente`, `passwordCliente`, `created_at`) VALUES
-(1, 'Juan', 'Quinto', 'juan@gmail.com', '$2y$10$NXTDfjpFyLLdI6UbsbGP7upr9w4Da9yRf1AYwv9KBy7rrwAif4Hce', '2024-11-09 15:18:35');
+(1, 'Juan', 'Quinto', 'juan@gmail.com', '$2y$10$NXTDfjpFyLLdI6UbsbGP7upr9w4Da9yRf1AYwv9KBy7rrwAif4Hce', '2024-11-09 15:18:35'),
+(2, 'Brandon ', 'Bernal Rodriguez', 'brandon@gmail.com', '$2y$10$UcmPB/kOiOEfCps7SNGwQuKMeAbB63dsrekP4C4aLu2HZB0bBUpNy', '2025-03-01 00:43:58'),
+(4, 'Brandon', 'Bernal', 'brandons@gmail.com', '$2y$10$hQLKrXKXhXmere6SWCKmwuZiGEN26aZ559jAyfDdvV1DE8KDFzmAG', '2025-03-14 23:57:29');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Table structure for table `detalle_pedido`
+--
+
+CREATE TABLE `detalle_pedido` (
+  `detalle_id` int(11) NOT NULL,
+  `pedido_id` int(11) NOT NULL,
+  `producto_id` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `detalle_pedido`
+--
+
+INSERT INTO `detalle_pedido` (`detalle_id`, `pedido_id`, `producto_id`, `cantidad`, `precio`) VALUES
+(1, 1, 26, 1, 45000.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `pedido_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `estado` varchar(20) NOT NULL,
+  `direccion_envio` text NOT NULL,
+  `metodo_pago` varchar(50) NOT NULL,
+  `fecha_pedido` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pedidos`
+--
+
+INSERT INTO `pedidos` (`pedido_id`, `usuario_id`, `total`, `estado`, `direccion_envio`, `metodo_pago`, `fecha_pedido`) VALUES
+(1, 2, 45000.00, 'Pendiente', 'cra 75 # 522', 'tarjeta', '2025-03-07 16:21:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productos`
 --
 
 CREATE TABLE `productos` (
@@ -109,7 +155,7 @@ CREATE TABLE `productos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `productos`
+-- Dumping data for table `productos`
 --
 
 INSERT INTO `productos` (`producto_id`, `nombreProducto`, `categoriaProducto`, `subcategoriaProducto`, `precioProducto`, `stockProducto`, `estadoProducto`, `tallas`, `colorProducto`, `materialProducto`, `descripcionProducto`, `fotosProducto`) VALUES
@@ -137,7 +183,7 @@ INSERT INTO `productos` (`producto_id`, `nombreProducto`, `categoriaProducto`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -151,18 +197,20 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `nombreUsuario`, `apellidoUsuario`, `emailUsuario`, `rolUsuario`, `passwordUsuario`, `created_at`) VALUES
-(1, 'Juan', 'Quinto', 'juan@gmail.com', 'Administrador', '$2y$10$Nz27TyvwVRPcU5k/Ylm48eaNv7Sndo14P08x/bqQ4mumfCic5c1CC', '2024-11-08 08:31:32');
+(1, 'Juan', 'Quinto', 'juan@gmail.com', 'Administrador', '1234', '2024-11-08 08:31:32'),
+(2, 'Brandon', 'Bernal', 'brandona@gmail.com', 'Administrador', '$2y$10$rhwI5c2konbmm2IJUAPrOOx4cH3pdmNr7UlivT1fukSx.akWfA4ES', '2025-03-01 00:45:59'),
+(3, 'Kevin', 'Rodridguez', 'kevin@gmail.com', 'Empleado', '$2y$10$EULpzoxKtdOZorg7vx/teeeI9iOTC/n/3pzUh7fweuGhp9ETK8C.y', '2025-03-08 15:46:02');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `carrito`
+-- Indexes for table `carrito`
 --
 ALTER TABLE `carrito`
   ADD PRIMARY KEY (`carrito_id`),
@@ -170,79 +218,119 @@ ALTER TABLE `carrito`
   ADD KEY `producto_id` (`producto_id`);
 
 --
--- Indices de la tabla `categorias`
+-- Indexes for table `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`categoria_id`);
 
 --
--- Indices de la tabla `clientes`
+-- Indexes for table `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`cliente_id`),
   ADD UNIQUE KEY `emailCliente` (`emailCliente`);
 
 --
--- Indices de la tabla `productos`
+-- Indexes for table `detalle_pedido`
+--
+ALTER TABLE `detalle_pedido`
+  ADD PRIMARY KEY (`detalle_id`),
+  ADD KEY `pedido_id` (`pedido_id`),
+  ADD KEY `producto_id` (`producto_id`);
+
+--
+-- Indexes for table `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`pedido_id`),
+  ADD KEY `usuario_id` (`usuario_id`);
+
+--
+-- Indexes for table `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`producto_id`),
   ADD KEY `categoriaProducto` (`categoriaProducto`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`usuario_id`),
   ADD UNIQUE KEY `emailUsuario` (`emailUsuario`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `carrito`
+-- AUTO_INCREMENT for table `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `carrito_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `carrito_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `categorias`
+-- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
   MODIFY `categoria_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `clientes`
+-- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `productos`
+-- AUTO_INCREMENT for table `detalle_pedido`
+--
+ALTER TABLE `detalle_pedido`
+  MODIFY `detalle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `productos`
 --
 ALTER TABLE `productos`
   MODIFY `producto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `carrito`
+-- Constraints for table `carrito`
 --
 ALTER TABLE `carrito`
   ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `clientes` (`cliente_id`),
   ADD CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`producto_id`);
 
 --
--- Filtros para la tabla `productos`
+-- Constraints for table `detalle_pedido`
+--
+ALTER TABLE `detalle_pedido`
+  ADD CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`pedido_id`),
+  ADD CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`producto_id`);
+
+--
+-- Constraints for table `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `clientes` (`cliente_id`);
+
+--
+-- Constraints for table `productos`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`categoriaProducto`) REFERENCES `categorias` (`categoria_id`);
