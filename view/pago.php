@@ -176,38 +176,7 @@ if (isset($_POST['confirmar_pago'])) {
                     </li>
                 </ul>
 
-                <!-- Barra de búsqueda centrada -->
-                <form class="d-flex mx-5" action="/MacaBlue/view/buscar.php" method="get">
-                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" name="query">
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
-
-                <!-- Icono de carrito -->
-                <a class="nav-link me-3" href="/MacaBlue/view/carrito.php" style="color: var(--fondo-claro);">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                
-                <!-- Icono de pedidos -->
-                <a class="nav-link me-3" href="/MacaBlue/view/pedido.php" style="color: var(--fondo-claro);">
-                    <i class="fas fa-box"></i>
-                </a>
-
-                <!-- Menú desplegable para usuario logueado -->
-                <?php if (isset($_SESSION['cliente_id'])) : ?>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: var(--fucsia-claro); font-weight: bold;">
-                            <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['nombreUsuario']) . ' ' . htmlspecialchars($_SESSION['apellidoUsuario']); ?>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="/MacaBlue/view/perfil.php">Perfil</a></li>
-                            <li><a class="dropdown-item" href="/MacaBlue/view/logout.php">Cerrar sesión</a></li>
-                        </ul>
-                    </div>
-                <?php else : ?>
-                    <a class="nav-link" href="/MacaBlue/view/ingreso.php" style="color: var(--fucsia-claro); font-weight: bold;">
-                        <i class="fas fa-user"></i> Iniciar sesión
-                    </a>
-                <?php endif; ?>
+               
             </div>
         </div>
     </nav>

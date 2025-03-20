@@ -91,6 +91,11 @@ $resultCategorias = $conn->query($sql);
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
 
+                <!-- Icono de pedidos -->
+                <a class="nav-link me-3" href="/MacaBlue/view/pedido.php" style="color: var(--fondo-claro);">
+                    <i class="fas fa-box"></i> <!-- Ícono de caja de pedidos -->
+                </a>
+
                 <!-- Icono de carrito -->
                 <a class="nav-link me-3" href="/MacaBlue/view/carrito.php" style="color: var(--fondo-claro);">
                     <i class="fas fa-shopping-cart"></i>
