@@ -1,4 +1,4 @@
-<?php
+<?php 
 require_once '../Admin/config/conexion.php'; // Incluir la clase de conexión
 
 // Crear una instancia de la clase Database y obtener la conexión
@@ -7,6 +7,7 @@ $conn = $database->getConnection();
 
 $mensaje = ""; // Variable para almacenar el mensaje de alerta
 $tipoMensaje = ""; // Variable para almacenar el tipo de mensaje ('success' o 'danger')
+$redireccionar = false; // Variable para controlar si redirige después de registrar
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
@@ -14,23 +15,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $contrasena = password_hash($_POST['contrasena'], PASSWORD_BCRYPT);
 
-    // Preparar la consulta SQL
-    $sql = "INSERT INTO clientes (nombreCliente, apellidoCliente, emailCliente, passwordCliente) VALUES (:nombre, :apellido, :email, :contrasena)";
-    $stmt = $conn->prepare($sql);
-    
-    // Enlazar los parámetros
-    $stmt->bindParam(':nombre', $nombre);
-    $stmt->bindParam(':apellido', $apellido);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':contrasena', $contrasena);
+    // Primero verificar si el correo ya existe
+    $sql_check = "SELECT * FROM clientes WHERE emailCliente = :email";
+    $stmt_check = $conn->prepare($sql_check);
+    $stmt_check->bindParam(':email', $email);
+    $stmt_check->execute();
 
-    // Ejecutar la consulta
-    if ($stmt->execute()) {
-        $mensaje = "Registro exitoso. Ahora puedes iniciar sesión.";
-        $tipoMensaje = "success";
-    } else {
-        $mensaje = "Error en el registro. Inténtalo nuevamente.";
+    if ($stmt_check->rowCount() > 0) {
+        // El correo ya está registrado
+        $mensaje = "El correo electrónico ya está registrado. Por favor intenta con otro.";
         $tipoMensaje = "danger";
+    } else {
+        // Insertar nuevo registro
+        $sql = "INSERT INTO clientes (nombreCliente, apellidoCliente, emailCliente, passwordCliente) 
+                VALUES (:nombre, :apellido, :email, :contrasena)";
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':apellido', $apellido);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':contrasena', $contrasena);
+
+        if ($stmt->execute()) {
+            $mensaje = "Registro exitoso. Redirigiendo a inicio de sesión...";
+            $tipoMensaje = "success";
+            $redireccionar = true; // Marca que hay que redirigir
+        } else {
+            $mensaje = "Error en el registro. Inténtalo nuevamente.";
+            $tipoMensaje = "danger";
+        }
     }
 }
 ?>
@@ -54,11 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             --fuente-bonita: 'Poppins', sans-serif;
         }
 
-        /* Estilos personalizados para el formulario de registro */
+        /* Estilos personalizados */
         body {
             background-color: var(--fondo-claro);
             font-family: var(--fuente-bonita);
-            color: var(--fondo-oscuro);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -80,11 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
-        }
-
-        .form-label {
-            text-align: left;
-            
         }
 
         .registro-container .form-control {
@@ -119,7 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: var(--fucsia-pastel);
         }
 
-        /* Estilos para la alerta fija en la parte superior */
         .alert-fixed {
             position: fixed;
             top: 20px;
@@ -132,50 +138,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <!-- Alerta fija en la parte superior -->
-    <?php if (!empty($mensaje)) : ?>
-        <div class="alert alert-<?php echo $tipoMensaje; ?> alert-fixed text-center" role="alert">
-            <?php echo $mensaje; ?>
-        </div>
-    <?php endif; ?>
 
-    <div class="registro-container">
-        <h2><i class="fas fa-user-plus"></i> Registro de Cliente</h2>
-        <form action="registro.php" method="POST">
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-            </div>
-            <div class="mb-3">
-                <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellido" name="apellido" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="contrasena" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Registrarse</button>
-        </form>
-        <p>¿Ya tienes una cuenta? <a href="ingreso.php">Inicia sesión</a></p>
+<?php if (!empty($mensaje)) : ?>
+    <div class="alert alert-<?php echo $tipoMensaje; ?> alert-fixed text-center" role="alert">
+        <?php echo $mensaje; ?>
     </div>
+<?php endif; ?>
 
-    <!-- Scripts de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<div class="registro-container">
+    <h2><i class="fas fa-user-plus"></i> Registro de Cliente</h2>
+    <form action="registro.php" method="POST">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="contrasena" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+    </form>
+    <p>¿Ya tienes una cuenta? <a href="ingreso.php">Inicia sesión</a></p>
+</div>
 
-    <!-- Ocultar la alerta automáticamente después de 3 segundos -->
-    <script>
-        setTimeout(() => {
-            const alert = document.querySelector('.alert-fixed');
-            if (alert) {
-                alert.style.display = 'none';
-            }
-        }, 3000);
-    </script>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    setTimeout(() => {
+        const alert = document.querySelector('.alert-fixed');
+        if (alert) {
+            alert.style.display = 'none';
+        }
+
+        <?php if ($redireccionar) : ?>
+            window.location.href = 'ingreso.php'; // Redirigir si fue exitoso
+        <?php endif; ?>
+    }, 3000);
+</script>
+
 </body>
 </html>
