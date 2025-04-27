@@ -1,0 +1,87 @@
+
+    /* Paleta de colores fucsia */
+    :root {
+        --fucsia-claro: #ff66cc;
+        --fucsia-pastel: #ff99cc;
+        --fondo-oscuro: #2c2f33;
+        --fondo-claro: #f8f9fa;
+        --fuente-bonita: 'Poppins', sans-serif;
+    }
+    
+
+    body {
+        font-family: var(--fuente-bonita);
+        background-color: var(--fondo-claro);
+        color: var(--fondo-oscuro);
+    }
+
+    .product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        border: none;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        background-color: var(--fondo-claro);
+    }
+
+    .product-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-img {
+        height: 250px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .price {
+        font-size: 1.5em;
+        color: var(--fucsia-pastel);
+        font-weight: bold;
+    }
+
+    .card-title {
+        color: var(--fucsia-claro);
+        font-weight: bold;
+    }
+
+    /* Estilos personalizados para botones */
+    .btn-primary {
+        background-color: var(--fucsia-claro) !important;
+        border-color: var(--fucsia-claro) !important;
+        font-weight: bold;
+        color: white !important;
+        outline: none !important;
+        box-shadow: none !important; 
+    }
+    
+    .btn-primary:focus, 
+    .btn-primary:active {
+        background-color: var(--fucsia-pastel) !important;
+        border-color: var(--fucsia-pastel) !important;
+        color: white !important;
+        outline: none !important; 
+        box-shadow: none !important; 
+    }
+
+    .btn-secondary {
+        background-color: var(--fondo-oscuro);
+        color: var(--fondo-claro);
+        font-weight: bold;
+    }
+
+    .btn-secondary:hover {
+        background-color: rgba(44, 47, 51, 0.8);
+        color: var(--fondo-claro);
+    }
+
+    .modal-content {
+        background-color: var(--fondo-claro);
+    }
+
+    .modal-footer .btn {
+        min-width: 100px;
+    }
+
