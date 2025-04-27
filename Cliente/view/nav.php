@@ -1,47 +1,22 @@
 <?php
+require_once dirname(__DIR__) . '/Controllers/CategoriaController.php'; // Incluir el controlador de categorías
 
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "macablue";
-
-// Conectar a la base de datos
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Error en la conexión: " . $conn->connect_error);
-}
-
-// Consultar las categorías y subcategorías
-$sql = "SELECT nombreCategoria, subcategorias FROM categorias";
-$resultCategorias = $conn->query($sql);
+$categoriaController = new CategoriaController();
+$categorias = $categoriaController->obtenerCategorias(); // Obtener las categorías y subcategorías
+$base_url = '/MacaBlue/cliente';
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="./assets/img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo $base_url; ?>/assets/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Ropa Online</title>
+    <title>Resultados de Búsqueda - <?php echo htmlspecialchars($query); ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/MacaBlue/assets/css/style.css">
-    <link rel="stylesheet" href="/MacaBlue/assets/css/nav.css">
-    <style>
-        /* Ajustes de la barra de búsqueda y colores del navbar */
-        .navbar .form-control {
-            width: 250px;
-            transition: none;
-        }
-        .navbar .nav-link {
-            color: var(--fondo-claro);
-            transition: color 0s;
-        }
-        .navbar .nav-link:hover {
-            color: var(--fucsia-claro);
-        }
-    </style>
+    <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/nav.css">
 </head>
 
 <body>
@@ -55,50 +30,45 @@ $resultCategorias = $conn->query($sql);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/MacaBlue/view/productos.php">Inicio</a>
+                        <a class="nav-link" href="/MacaBlue/Cliente/view/productos.php">Inicio</a>
                     </li>
-                    <?php
-                    if ($resultCategorias->num_rows > 0) {
-                        while ($row = $resultCategorias->fetch_assoc()) {
-                            $categoria = $row['nombreCategoria'];
-                            $subcategorias = explode(',', $row['subcategorias']);
-
-                            echo '<li class="nav-item dropdown">';
-                            echo '<a class="nav-link dropdown-toggle" href="#" id="dropdown' . htmlspecialchars($categoria) . '" role="button" data-bs-toggle="dropdown" aria-expanded="false">';
-                            echo htmlspecialchars($categoria);
-                            echo '</a>';
-                            echo '<ul class="dropdown-menu" aria-labelledby="dropdown' . htmlspecialchars($categoria) . '">';
-                            foreach ($subcategorias as $subcategoria) {
-                                $subcategoria = trim($subcategoria);
-                                echo '<li><a class="dropdown-item" href="/MacaBlue/view/productos.php?subcategoria=' . urlencode($subcategoria) . '">' . htmlspecialchars($subcategoria) . '</a></li>';
-                            }
-                            echo '</ul></li>';
-                        }
-                    } else {
-                        echo '<li><a class="nav-link" href="#">No hay categorías</a></li>';
-                    }
-                    ?>
+                    <?php if (!empty($categorias)) : ?>
+                        <?php foreach ($categorias as $categoria) : ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown<?php echo htmlspecialchars($categoria['nombreCategoria']); ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <?php echo htmlspecialchars($categoria['nombreCategoria']); ?>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdown<?php echo htmlspecialchars($categoria['nombreCategoria']); ?>">
+                                    <?php foreach ($categoria['subcategorias'] as $subcategoria) : ?>
+                                        <li><a class="dropdown-item" href="/MacaBlue/Cliente/view/productos.php?subcategoria=<?php echo urlencode($subcategoria); ?>"><?php echo htmlspecialchars($subcategoria); ?></a></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <li><a class="nav-link" href="#">No hay categorías</a></li>
+                    <?php endif; ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/MacaBlue/view/sobre_nosotros.php">Sobre Nosotros</a>
+                        <a class="nav-link" href="/MacaBlue/Cliente/view/sobre_nosotros.php">Sobre Nosotros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/MacaBlue/view/contacto.php">Contacto</a>
+                        <a class="nav-link" href="/MacaBlue/Cliente/view/contacto.php">Contacto</a>
                     </li>
                 </ul>
 
                 <!-- Barra de búsqueda centrada -->
-                <form class="d-flex mx-4" action="/MacaBlue/view/buscar.php" method="get">
+                <form class="d-flex mx-4" action="/MacaBlue/Cliente/view/buscar.php" method="get">
                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" name="query">
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
 
                 <!-- Icono de pedidos -->
-                <a class="nav-link me-3" href="/MacaBlue/view/pedido.php" style="color: var(--fondo-claro);">
+                <a class="nav-link me-3" href="/MacaBlue/Cliente/view/pedido.php" style="color: var(--fondo-claro);">
                     <i class="fas fa-box"></i> <!-- Ícono de caja de pedidos -->
                 </a>
 
                 <!-- Icono de carrito -->
-                <a class="nav-link me-3" href="/MacaBlue/view/carrito.php" style="color: var(--fondo-claro);">
+                <a class="nav-link me-3" href="/MacaBlue/Cliente/view/carrito.php" style="color: var(--fondo-claro);">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
 
@@ -109,12 +79,12 @@ $resultCategorias = $conn->query($sql);
                             <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['nombreUsuario']) . ' ' . htmlspecialchars($_SESSION['apellidoUsuario']); ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="/MacaBlue/view/perfil.php">Perfil</a></li>
-                            <li><a class="dropdown-item" href="/MacaBlue/view/logout.php">Cerrar sesión</a></li>
+                            <li><a class="dropdown-item" href="/MacaBlue/Cliente/view/perfil.php">Perfil</a></li>
+                            <li><a class="dropdown-item" href="/MacaBlue/Cliente/view/logout.php">Cerrar sesión</a></li>
                         </ul>
                     </div>
                 <?php else : ?>
-                    <a class="nav-link" href="/MacaBlue/view/ingreso.php" style="color: var(--fucsia-claro); font-weight: bold;">
+                    <a class="nav-link" href="/MacaBlue/cliente/view/ingreso.php" style="color: var(--fucsia-claro); font-weight: bold;">
                         <i class="fas fa-user"></i> Iniciar sesión
                     </a>
                 <?php endif; ?>

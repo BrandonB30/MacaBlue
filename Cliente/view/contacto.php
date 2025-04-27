@@ -1,63 +1,37 @@
 <?php
 session_start();
+// Al inicio del archivo, después de session_start()
+require_once dirname(__DIR__) . '/config/conexion.php';
+require_once dirname(__DIR__) . '/Models/MensajeModel.php';
+require_once dirname(__DIR__) . '/Controllers/ContactoController.php';
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "macablue";
+// Crear la conexión
+$conexion = new Conexion();
+$conn = $conexion->conectar(); 
 
-// Conectar a la base de datos
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Error en la conexión: " . $conn->connect_error);
-}
+// Crear el modelo con la conexión correcta
+$mensajeModel = new MensajeModel($conn);
+$controller = new ContactoController($mensajeModel);
+// Procesar el formulario
+$result = $controller->procesarFormulario();
+$mensaje_enviado = isset($result['mensaje_enviado']) ? $result['mensaje_enviado'] : false;
+$mensaje_error = isset($result['mensaje_error']) ? $result['mensaje_error'] : null;
 
-// Procesar el formulario de contacto
-$mensaje_enviado = false;
-$mensaje_error = false;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar_mensaje'])) {
-    $nombre = $conn->real_escape_string($_POST['nombre']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $asunto = $conn->real_escape_string($_POST['asunto']);
-    $mensaje = $conn->real_escape_string($_POST['mensaje']);
-    $fecha = date('Y-m-d H:i:s');
-    
-    // Validar el correo electrónico
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $mensaje_error = "Por favor, introduce un correo electrónico válido.";
-    } else {
-        // Insertar el mensaje en la base de datos
-        $sql = "INSERT INTO mensajes_contacto (nombre, email, asunto, mensaje, fecha) 
-                VALUES (?, ?, ?, ?, ?)";
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssss", $nombre, $email, $asunto, $mensaje, $fecha);
-        
-        if ($stmt->execute()) {
-            $mensaje_enviado = true;
-        } else {
-            $mensaje_error = "Ha ocurrido un error al enviar el mensaje. Por favor, inténtalo de nuevo.";
-        }
-        
-        $stmt->close();
-    }
-}
+$base_url = '/MacaBlue/cliente';
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="<?php echo $base_url; ?>/assets/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - MacaBlue</title>
-    <link rel="shortcut icon" href="./assets/img/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Contacto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/MacaBlue/assets/css/style.css">
-    <link rel="stylesheet" href="/MacaBlue/assets/css/nav.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+<body>
 
 <body>
     <!-- Incluir el archivo de navegación -->
@@ -72,15 +46,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['enviar_mensaje'])) {
         </div>
 
         <?php if ($mensaje_enviado): ?>
-        <div class="alert alert-success" role="alert">
-            ¡Tu mensaje ha sido enviado con éxito! Te responderemos lo antes posible.
-        </div>
-        <?php endif; ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Mensaje enviado!',
+                    text: 'Tu mensaje ha sido enviado con éxito. Te responderemos lo antes posible.',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    position: 'top-end',
+                    toast: true
+                });
 
-        <?php if ($mensaje_error): ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $mensaje_error; ?>
-        </div>
+                // Limpiar el parámetro ?success=1 de la URL
+                if (window.history.replaceState) {
+                    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                    window.history.replaceState({ path: newUrl }, '', newUrl);
+                }
+            });
+        </script>
+        <?php elseif ($mensaje_error): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al enviar',
+                    text: '<?php echo htmlspecialchars($mensaje_error); ?>',
+                    confirmButtonText: 'Aceptar',
+                    position: 'center'
+                });
+
+                // Limpiar el parámetro ?success=1 de la URL
+                if (window.history.replaceState) {
+                    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                    window.history.replaceState({ path: newUrl }, '', newUrl);
+                }
+            });
+        </script>
         <?php endif; ?>
 
         <div class="row mb-5">

@@ -1,140 +1,52 @@
 <?php
 session_start();
-require_once '../Admin/config/conexion.php'; // Conexión a la base de datos
-
-// Crear instancia de la base de datos y obtener la conexión
-$database = new Database();
-$conn = $database->getConnection();
+require_once '../controllers/PagoController.php';
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['cliente_id'])) {
-    echo "<script>alert('Debes iniciar sesión para realizar el pago'); window.location.href = 'ingreso.php';</script>";
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Acceso denegado',
+                text: 'Debes iniciar sesión para realizar el pago.',
+                confirmButtonText: 'Iniciar sesión',
+                allowOutsideClick: false
+            }).then(() => {
+                window.location.href = 'ingreso.php';
+            });
+        });
+    </script>";
     exit();
 }
 
 $usuario_id = $_SESSION['cliente_id'];
+$pagoController = new PagoController();
 
-// Consultar las categorías y subcategorías para el menú
-$sqlCategorias = "SELECT nombreCategoria, subcategorias FROM categorias";
-$stmtCategorias = $conn->prepare($sqlCategorias);
-$stmtCategorias->execute();
-$resultCategorias = $stmtCategorias->fetchAll(PDO::FETCH_ASSOC);
-
-// Obtener los productos del carrito del usuario
-$sqlCarrito = "SELECT c.producto_id, c.cantidad, p.nombreProducto, p.precioProducto, p.fotosProducto 
-               FROM carrito c
-               JOIN productos p ON c.producto_id = p.producto_id
-               WHERE c.usuario_id = :usuario_id";
-$stmtCarrito = $conn->prepare($sqlCarrito);
-$stmtCarrito->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
-$stmtCarrito->execute();
-$resultCarrito = $stmtCarrito->fetchAll(PDO::FETCH_ASSOC);
-
-// Calcular el total de la compra
-$total = 0;
-$productos = [];
-
-// Con PDO ya tienes todos los resultados en $resultCarrito
-// No necesitas usar fetch_assoc() en un bucle
-foreach ($resultCarrito as $item) {
-    $subtotal = $item['cantidad'] * $item['precioProducto'];
-    $total += $subtotal;
-    $productos[] = $item;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmar_pago'])) {
+    $direccion = $_POST['direccion'];
+    $metodo_pago = $_POST['metodo_pago'];
+    $pagoController->procesarPago($usuario_id, $direccion, $metodo_pago);
 }
 
-// Procesar el pago cuando se envía el formulario
-if (isset($_POST['confirmar_pago'])) {
-    // Validar que haya productos en el carrito
-    if (count($productos) > 0) {
-        // Iniciar transacción
-        $conn->beginTransaction();
-        
-        try {
-            // Crear el pedido
-            $sqlPedido = "INSERT INTO pedidos (usuario_id, total, estado, direccion_envio, metodo_pago) 
-                          VALUES (:usuario_id, :total, 'Pendiente', :direccion, :metodo_pago)";
-            $stmtPedido = $conn->prepare($sqlPedido);
-            $direccion = $_POST['direccion'];
-            $metodo_pago = $_POST['metodo_pago'];
-            $stmtPedido->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
-            $stmtPedido->bindParam(':total', $total, PDO::PARAM_STR);
-            $stmtPedido->bindParam(':direccion', $direccion, PDO::PARAM_STR);
-            $stmtPedido->bindParam(':metodo_pago', $metodo_pago, PDO::PARAM_STR);
-            $stmtPedido->execute();
-            $pedido_id = $conn->lastInsertId();
-            
-            // Insertar los detalles del pedido
-            $sqlDetalle = "INSERT INTO detalle_pedido (pedido_id, producto_id, cantidad, precio) 
-                          VALUES (:pedido_id, :producto_id, :cantidad, :precio)";
-            $stmtDetalle = $conn->prepare($sqlDetalle);
-            
-            foreach ($productos as $producto) {
-                $stmtDetalle->bindParam(':pedido_id', $pedido_id, PDO::PARAM_INT);
-                $stmtDetalle->bindParam(':producto_id', $producto['producto_id'], PDO::PARAM_INT);
-                $stmtDetalle->bindParam(':cantidad', $producto['cantidad'], PDO::PARAM_INT);
-                $stmtDetalle->bindParam(':precio', $producto['precioProducto'], PDO::PARAM_STR);
-                $stmtDetalle->execute();
-            }
-            
-            // Vaciar el carrito del usuario
-            $sqlVaciar = "DELETE FROM carrito WHERE usuario_id = :usuario_id";
-            $stmtVaciar = $conn->prepare($sqlVaciar);
-            $stmtVaciar->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
-            $stmtVaciar->execute();
-            
-            // Confirmar la transacción
-            $conn->commit();
-            
-            // Redireccionar con mensaje de éxito
-            echo "<script>alert('¡Pago procesado con éxito! Tu pedido #" . $pedido_id . " ha sido registrado.'); window.location.href = 'pedido.php';</script>";
-            exit();
-            
-        } catch (Exception $e) {
-            // Revertir cambios si hay algún error
-            $conn->rollBack();
-            echo "<script>alert('Error al procesar el pago: " . $e->getMessage() . "'); window.location.href = 'carrito.php';</script>";
-            exit();
-        }
-    } else {
-        echo "<script>alert('No hay productos en el carrito'); window.location.href = 'carrito.php';</script>";
-        exit();
-    }
-}
+// Obtener productos del carrito para mostrar en la vista
+$productos = $pagoController->carritoModel->getCartItems($usuario_id);
+$total = $pagoController->calcularTotal($productos);
+$base_url = '/MacaBlue/cliente';
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="<?php echo $base_url; ?>/assets/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finalizar Compra - MacaBlue</title>
-    <link rel="shortcut icon" href="./assets/img/favicon.png" type="image/x-icon">
+    <title>Resultados de Búsqueda - <?php echo htmlspecialchars($query); ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/MacaBlue/assets/css/style.css">
-    <link rel="stylesheet" href="/MacaBlue/assets/css/nav.css">
-    <style>
-        .payment-method {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .payment-method:hover {
-            border-color: var(--fucsia-claro);
-        }
-        .payment-method.selected {
-            border-color: var(--fucsia-claro);
-            background-color: rgba(255, 105, 180, 0.05);
-        }
-        .payment-method img {
-            height: 30px;
-            width: auto;
-            margin-right: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/nav.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-custom" style="background-color: var(--fondo-oscuro);">
@@ -148,27 +60,6 @@ if (isset($_POST['confirmar_pago'])) {
                     <li class="nav-item">
                         <a class="nav-link" href="/MacaBlue/view/productos.php">Inicio</a>
                     </li>
-                    <?php
-                    if (count($resultCategorias) > 0) {
-                        foreach ($resultCategorias as $row) {
-                            $categoria = $row['nombreCategoria'];
-                            $subcategorias = explode(',', $row['subcategorias']);
-
-                            echo '<li class="nav-item dropdown">';
-                            echo '<a class="nav-link dropdown-toggle" href="#" id="dropdown' . htmlspecialchars($categoria) . '" role="button" data-bs-toggle="dropdown" aria-expanded="false">';
-                            echo htmlspecialchars($categoria);
-                            echo '</a>';
-                            echo '<ul class="dropdown-menu" aria-labelledby="dropdown' . htmlspecialchars($categoria) . '">';
-                            foreach ($subcategorias as $subcategoria) {
-                                $subcategoria = trim($subcategoria);
-                                echo '<li><a class="dropdown-item" href="/MacaBlue/view/productos.php?subcategoria=' . urlencode($subcategoria) . '">' . htmlspecialchars($subcategoria) . '</a></li>';
-                            }
-                            echo '</ul></li>';
-                        }
-                    } else {
-                        echo '<li><a class="nav-link" href="#">No hay categorías</a></li>';
-                    }
-                    ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/MacaBlue/view/sobre_nosotros.php">Sobre Nosotros</a>
                     </li>
@@ -176,8 +67,6 @@ if (isset($_POST['confirmar_pago'])) {
                         <a class="nav-link" href="/MacaBlue/view/contacto.php">Contacto</a>
                     </li>
                 </ul>
-
-               
             </div>
         </div>
     </nav>
@@ -330,26 +219,43 @@ if (isset($_POST['confirmar_pago'])) {
             document.getElementById(method).closest('.payment-method').classList.add('selected');
         }
 
-        // Validación del formulario
+        // Validación del formulario con SweetAlert2
         document.getElementById('payment-form').addEventListener('submit', function(event) {
             let direccion = document.getElementById('direccion').value;
             let metodoPago = document.querySelector('input[name="metodo_pago"]:checked');
-            
+
             if (!direccion.trim()) {
-                alert('Por favor, ingresa una dirección de envío');
                 event.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Dirección requerida',
+                    text: 'Por favor, ingresa una dirección de envío.',
+                    confirmButtonText: 'Aceptar',
+                    position: 'center'
+                });
                 return false;
             }
-            
+
             if (!metodoPago) {
-                alert('Por favor, selecciona un método de pago');
                 event.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Método de pago requerido',
+                    text: 'Por favor, selecciona un método de pago.',
+                    confirmButtonText: 'Aceptar',
+                    position: 'center'
+                });
                 return false;
             }
-            
+
             return true;
         });
+
+        // Limpiar el parámetro ?success=1 de la URL
+        if (window.history.replaceState) {
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.replaceState({ path: newUrl }, '', newUrl);
+        }
     </script>
 </body>
 </html>
-<?php $conn = null; ?>

@@ -1,9 +1,5 @@
-<?php 
-require_once '../Admin/config/conexion.php'; // Incluir la clase de conexión
-
-// Crear una instancia de la clase Database y obtener la conexión
-$database = new Database();
-$conn = $database->getConnection();
+<?php
+require_once '../controllers/ClienteController.php';
 
 $mensaje = ""; // Variable para almacenar el mensaje de alerta
 $tipoMensaje = ""; // Variable para almacenar el tipo de mensaje ('success' o 'danger')
@@ -13,38 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $email = $_POST['email'];
-    $contrasena = password_hash($_POST['contrasena'], PASSWORD_BCRYPT);
+    $contrasena = $_POST['contrasena'];
 
-    // Primero verificar si el correo ya existe
-    $sql_check = "SELECT * FROM clientes WHERE emailCliente = :email";
-    $stmt_check = $conn->prepare($sql_check);
-    $stmt_check->bindParam(':email', $email);
-    $stmt_check->execute();
+    // Llamar al controlador para registrar al cliente
+    $resultado = ClienteController::registrarCliente($nombre, $apellido, $email, $contrasena);
 
-    if ($stmt_check->rowCount() > 0) {
-        // El correo ya está registrado
-        $mensaje = "El correo electrónico ya está registrado. Por favor intenta con otro.";
-        $tipoMensaje = "danger";
-    } else {
-        // Insertar nuevo registro
-        $sql = "INSERT INTO clientes (nombreCliente, apellidoCliente, emailCliente, passwordCliente) 
-                VALUES (:nombre, :apellido, :email, :contrasena)";
-        $stmt = $conn->prepare($sql);
-
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':apellido', $apellido);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':contrasena', $contrasena);
-
-        if ($stmt->execute()) {
-            $mensaje = "Registro exitoso. Redirigiendo a inicio de sesión...";
-            $tipoMensaje = "success";
-            $redireccionar = true; // Marca que hay que redirigir
-        } else {
-            $mensaje = "Error en el registro. Inténtalo nuevamente.";
-            $tipoMensaje = "danger";
-        }
-    }
+    $mensaje = $resultado['mensaje'];
+    $tipoMensaje = $resultado['tipo'];
+    $redireccionar = $resultado['redireccionar'];
 }
 ?>
 
@@ -58,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/MacaBlue/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Paleta de colores */
         :root {
@@ -141,9 +114,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <?php if (!empty($mensaje)) : ?>
-    <div class="alert alert-<?php echo $tipoMensaje; ?> alert-fixed text-center" role="alert">
-        <?php echo $mensaje; ?>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: '<?php echo $tipoMensaje === "success" ? "success" : "error"; ?>',
+                title: '<?php echo $tipoMensaje === "success" ? "¡Registro exitoso!" : "Error"; ?>',
+                text: '<?php echo htmlspecialchars($mensaje); ?>',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                position: 'top-end',
+                toast: true
+            }).then(() => {
+                <?php if ($redireccionar) : ?>
+                    window.location.href = 'ingreso.php'; // Redirigir si fue exitoso
+                <?php endif; ?>
+            });
+
+            // Limpiar el parámetro ?success=1 de la URL
+            if (window.history.replaceState) {
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                window.history.replaceState({ path: newUrl }, '', newUrl);
+            }
+        });
+    </script>
 <?php endif; ?>
 
 <div class="registro-container">
@@ -174,19 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    setTimeout(() => {
-        const alert = document.querySelector('.alert-fixed');
-        if (alert) {
-            alert.style.display = 'none';
-        }
-
-        <?php if ($redireccionar) : ?>
-            window.location.href = 'ingreso.php'; // Redirigir si fue exitoso
-        <?php endif; ?>
-    }, 3000);
-</script>
 
 </body>
 </html>
