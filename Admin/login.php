@@ -80,7 +80,7 @@
                 <button type="submit" class="btn btn-primary w-100" id="submitButton">Iniciar Sesión</button>
             </form>
             <div class="text-center mt-3">
-                <a href="forgot-password.php" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+                <a href="http://localhost/MacaBlue/Admin/view/password-reset.php" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
             </div>
         </div>
     </div>

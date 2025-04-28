@@ -53,7 +53,41 @@ $base_url = '/MacaBlue/cliente';
         });
     </script>
 <?php endif; ?>
-    <!-- Añade este script antes del cierre del body -->
+<?php 
+if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'login_required') {
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Acceso Restringido',
+                text: 'Debes iniciar sesión para acceder al carrito',
+                confirmButtonText: 'Entendido'
+            });
+            // Limpiar el parámetro de la URL
+            if (window.history.replaceState) {
+                const newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+                window.history.replaceState({ path: newUrl }, '', newUrl);
+            }
+        });
+    </script>";
+}
+?>
+<?php 
+if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'login_required') {
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Acceso Restringido',
+                text: 'Debes iniciar sesión para acceder al carrito.',
+                confirmButtonText: 'Entendido'
+            }).then(() => {
+                window.location.href = 'productos.php';
+            });
+        });
+    </script>";
+}
+?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Seleccionar todos los formularios de añadir al carrito

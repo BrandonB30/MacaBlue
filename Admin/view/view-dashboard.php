@@ -1,3 +1,7 @@
+<?php
+require_once '../middleware/AuthMiddleware.php';
+AuthMiddleware::requireRole(['Administrador', 'Empleado']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 

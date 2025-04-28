@@ -1,14 +1,19 @@
 <?php
 session_start(); // Iniciar la sesión
 require_once dirname(__DIR__) . '/config/conexion.php'; // Incluir la clase Conexion
+require_once dirname(__DIR__) . '/Models/CarritoModel.php'; // Incluir el modelo del carrito
 require_once dirname(__DIR__) . '/Controllers/CarritoController.php';
 require_once dirname(__DIR__) . '/Controllers/AuthController.php';
-AuthController::verificarSesion();
+require_once '../controllers/authController.php';
+
+// Validar acceso al carrito
+AuthController::verificarSesion('/MacaBlue/Cliente/view/productos.php', 'Debes iniciar sesión para acceder al carrito.');
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['cliente_id'])) {
-    echo "<script>alert('Debes iniciar sesión para acceder al carrito'); window.location.href = 'ingreso.php';</script>";
-    exit();
+    // Redirigir a la página de productos con mensaje
+    header('Location: ../view/productos.php?mensaje=login_required');
+    exit;
 }
 
 // Crear instancia de la base de datos
@@ -34,7 +39,7 @@ $base_url = '/MacaBlue/cliente';
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="<?php echo $base_url; ?>/assets/img/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados de Búsqueda - <?php echo htmlspecialchars($query); ?></title>
+    <title>Carrito de Compras - MacaBlue</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/style.css">

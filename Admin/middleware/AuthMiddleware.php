@@ -36,7 +36,7 @@ class AuthMiddleware {
      * Redirecciona si el usuario no está autenticado
      * @param string $redirectTo - URL a la que redirigir si no está autenticado
      */
-    public static function requireAuth($redirectTo = '/MacaBlue/Admin/view/login.php') {
+    public static function requireAuth($redirectTo = '/MacaBlue/Admin/login.php') {
         if(!self::isAuthenticated()) {
             header("Location: $redirectTo");
             exit;

@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 
 include_once '../config/conexion.php'; // Incluir conexión a la base de datos
 include_once '../model/model-pedidos.php'; // Incluir el modelo de pedidos
+require_once '../middleware/AuthMiddleware.php';
 
 // Crear conexión a la base de datos
 $database = new Database();
@@ -14,6 +15,7 @@ $pedido = new Pedido($db);
 
 // Obtener todos los pedidos
 $pedidos = $pedido->readAll();
+AuthMiddleware::requireRole(['Administrador', 'Empleado']);
 ?>
 
 <!DOCTYPE html>
