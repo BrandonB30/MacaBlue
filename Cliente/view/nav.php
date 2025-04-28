@@ -66,11 +66,11 @@ $base_url = '/MacaBlue/cliente';
                 <!-- Icono de pedidos -->
                 <?php if (isset($_SESSION['cliente_id'])): ?>
                     <a class="nav-link me-3" href="/MacaBlue/Cliente/view/pedido.php" style="color: var(--fondo-claro);">
-                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fa-solid fa-box"></i>
                     </a>
                 <?php else: ?>
                     <a class="nav-link me-3" href="#" onclick="mostrarAlertaNoLogueado1()" style="color: var(--fondo-claro);">
-                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fa-solid fa-box"></i>
                     </a>
                 <?php endif; ?>
 

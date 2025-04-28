@@ -127,8 +127,32 @@ unset($_SESSION['mensaje'], $_SESSION['tipoMensaje']);
         </form>
         <p>¿No tienes una cuenta? <a href="registro.php">Regístrate aquí</a></p>
         <p>¿Eres Administrador? <a href="/MacaBlue/Admin/login.php">Inicia sesión</a></p>
+        <p>¿Olvidaste tu contraseña? <a href="#" data-bs-toggle="modal" data-bs-target="#recuperarContrasenaModal">Recupérala aquí</a></p>
     </div>
-    
+
+    <!-- Modal para recuperación de contraseña -->
+    <div class="modal fade" id="recuperarContrasenaModal" tabindex="-1" aria-labelledby="recuperarContrasenaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="recuperarContrasenaLabel">Recuperar Contraseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="../controllers/RecuperarContrasenaController.php" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="correoRecuperacion" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="correoRecuperacion" name="correoRecuperacion" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
