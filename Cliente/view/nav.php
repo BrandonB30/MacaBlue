@@ -17,13 +17,14 @@ $base_url = '/MacaBlue/cliente';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/nav.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
     <!-- Navegación -->
     <nav class="navbar navbar-expand-lg navbar-custom" style="background-color: var(--fondo-oscuro);">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/MacaBlue/view/productos.php" style="color: var(--fucsia-claro); font-weight: bold;">MacaBlue</a>
+            <a class="navbar-brand" href="/MacaBlue/Cliente/view/productos.php" style="color: var(--fucsia-claro); font-weight: bold;">MacaBlue</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -63,14 +64,26 @@ $base_url = '/MacaBlue/cliente';
                 </form>
 
                 <!-- Icono de pedidos -->
-                <a class="nav-link me-3" href="/MacaBlue/Cliente/view/pedido.php" style="color: var(--fondo-claro);">
-                    <i class="fas fa-box"></i> <!-- Ícono de caja de pedidos -->
-                </a>
+                <?php if (isset($_SESSION['cliente_id'])): ?>
+                    <a class="nav-link me-3" href="/MacaBlue/Cliente/view/pedido.php" style="color: var(--fondo-claro);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                <?php else: ?>
+                    <a class="nav-link me-3" href="#" onclick="mostrarAlertaNoLogueado1()" style="color: var(--fondo-claro);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                <?php endif; ?>
 
                 <!-- Icono de carrito -->
-                <a class="nav-link me-3" href="/MacaBlue/Cliente/view/carrito.php" style="color: var(--fondo-claro);">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
+                <?php if (isset($_SESSION['cliente_id'])): ?>
+                    <a class="nav-link me-3" href="/MacaBlue/Cliente/view/carrito.php" style="color: var(--fondo-claro);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                <?php else: ?>
+                    <a class="nav-link me-3" href="#" onclick="mostrarAlertaNoLogueado()" style="color: var(--fondo-claro);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                <?php endif; ?>
 
                 <!-- Menú desplegable para usuario logueado -->
                 <?php if (isset($_SESSION['cliente_id'])) : ?>
@@ -91,5 +104,39 @@ $base_url = '/MacaBlue/cliente';
             </div>
         </div>
     </nav>
+            <script>
+            function mostrarAlertaNoLogueado() {
+                Swal.fire({
+                icon: 'warning',
+                title: '¡Debes iniciar sesión!',
+                text: 'Por favor, ingresa al sistema para ver tu carrito.',
+                confirmButtonText: 'Ir a Iniciar Sesión',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/MacaBlue/cliente/view/ingreso.php'; // Redirige al login
+                }
+            });
+        }
+        </script>
+        <script>
+            function mostrarAlertaNoLogueado1() {
+                Swal.fire({
+                icon: 'warning',
+                title: '¡Debes iniciar sesión!',
+                text: 'Por favor, ingresa al sistema para ver tus pedidos.',
+                confirmButtonText: 'Ir a Iniciar Sesión',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/MacaBlue/cliente/view/ingreso.php'; // Redirige al login
+                }
+            });
+        }
+</script>
 </body>
 </html>

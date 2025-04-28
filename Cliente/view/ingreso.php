@@ -126,7 +126,9 @@ unset($_SESSION['mensaje'], $_SESSION['tipoMensaje']);
             <button type="submit" class="btn btn-primary">Ingresar</button>
         </form>
         <p>¿No tienes una cuenta? <a href="registro.php">Regístrate aquí</a></p>
+        <p>¿Eres Administrador? <a href="/MacaBlue/Admin/login.php">Inicia sesión</a></p>
     </div>
+    
 
     <!-- Scripts de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

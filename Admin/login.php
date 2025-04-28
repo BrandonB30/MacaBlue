@@ -47,6 +47,10 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+        #verificationCodeContainer {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-fixed bg-body-tertiary">
@@ -65,11 +69,15 @@
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" id="password" name="password" class="form-control" required>
                 </div>
+                <div id="verificationCodeContainer" class="mb-3">
+                    <label for="verification_code" class="form-label">Código de Verificación</label>
+                    <input type="text" id="verification_code" name="verification_code" class="form-control">
+                </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" id="rememberMe" name="rememberMe" class="form-check-input">
                     <label for="rememberMe" class="form-check-label">Recordarme</label>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                <button type="submit" class="btn btn-primary w-100" id="submitButton">Iniciar Sesión</button>
             </form>
             <div class="text-center mt-3">
                 <a href="forgot-password.php" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
@@ -95,6 +103,8 @@
             event.preventDefault();
 
             const formData = new FormData(this);
+            const verificationCodeContainer = document.getElementById('verificationCodeContainer');
+            const submitButton = document.getElementById('submitButton');
 
             fetch('./controller/authenticate.php', {
                 method: 'POST',
@@ -102,7 +112,11 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.status === "success") {
+                if (data.status === "pending") {
+                    showCustomAlert(data.message, 'success');
+                    verificationCodeContainer.style.display = 'block'; // Mostrar campo de código
+                    submitButton.textContent = 'Verificar Código'; // Cambiar texto del botón
+                } else if (data.status === "success") {
                     showCustomAlert(data.message, 'success');
                     setTimeout(() => {
                         window.location.href = './view/view-dashboard.php';

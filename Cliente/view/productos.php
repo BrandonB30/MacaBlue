@@ -10,11 +10,14 @@ if (isset($_SESSION['login_success'])) {
     unset($_SESSION['login_success']);
 }
 
-// Asegúrate de que $subcategoria no tenga valores predeterminados
 $subcategoria = isset($_GET['subcategoria']) && !empty(trim($_GET['subcategoria'])) ? trim($_GET['subcategoria']) : null;
 
-// Obtener productos desde el controlador
-$productos = ProductoController::obtenerProductos($subcategoria);
+if ($subcategoria !== null) {
+    $productos = ProductoController::obtenerProductos($subcategoria);
+} else {
+    $productos = ProductoController::obtenerProductos(); // Mostrar todo
+}
+
 $base_url = '/MacaBlue/cliente';
 ?>
 
@@ -86,9 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php include 'nav.php'; ?>
 
 <div class="container mt-5">
-    <h1 class="text-center mb-5" style="color: var(--fucsia-claro);">
-        <?php echo $subcategoria ? htmlspecialchars($subcategoria) : '&nbsp;'; // Mostrar espacio vacío si no hay subcategoría ?>
-    </h1>
     <div class="row">
         <?php if (!empty($productos)): ?>
             <?php foreach ($productos as $producto): ?>
