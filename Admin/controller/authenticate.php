@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php'; // Corrige la ruta si es necesario
-
+$conn->set_charset("utf8");
 // Función para enviar correo
 function enviarCorreo($email, $asunto, $mensaje) {
     $mail = new PHPMailer(true);
