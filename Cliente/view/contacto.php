@@ -156,10 +156,8 @@ $base_url = '/MacaBlue/cliente';
                         <div class="mt-4">
                             <h4>Síguenos en redes sociales</h4>
                             <div class="social-icons mt-3">
-                                <a href="#" class="me-3"><i class="fab fa-facebook fa-2x" style="color: var(--fucsia-claro);"></i></a>
-                                <a href="#" class="me-3"><i class="fab fa-instagram fa-2x" style="color: var(--fucsia-claro);"></i></a>
-                                <a href="#" class="me-3"><i class="fab fa-twitter fa-2x" style="color: var(--fucsia-claro);"></i></a>
-                                <a href="#"><i class="fab fa-youtube fa-2x" style="color: var(--fucsia-claro);"></i></a>
+                                <a href="https://www.facebook.com/share/1AVspFX6cp/" class="me-3"><i class="fab fa-facebook fa-2x" style="color: var(--fucsia-claro);"></i></a>
+                                <a href="https://www.instagram.com/macablue2025?igsh=enZ3ZDBiZzBnbHMw" class="me-3"><i class="fab fa-instagram fa-2x" style="color: var(--fucsia-claro);"></i></a>
                             </div>
                         </div>
                     </div>

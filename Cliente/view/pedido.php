@@ -169,7 +169,7 @@ $base_url = '/MacaBlue/cliente';
                     <i class="fas fa-shopping-bag fa-4x mb-3" style="color: var(--fucsia-claro);"></i>
                     <h4>No has realizado ningún pedido todavía</h4>
                     <p class="text-muted">¡Explora nuestra tienda y encuentra productos increíbles!</p>
-                    <a href="/MacaBlue/view/productos.php" class="btn btn-primary mt-3">Ir a comprar</a>
+                    <a href="/MacaBlue/Cliente/view/productos.php" class="btn btn-primary mt-3">Ir a comprar</a>
                 </div>
             </div>
         <?php endif; ?>

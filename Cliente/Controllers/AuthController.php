@@ -39,3 +39,4 @@ class AuthController {
     // Otros métodos de autenticación que puedas tener
     // login, registro, logout, etc.
 }
+

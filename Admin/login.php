@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="../Adminlte/dist/css/adminlte.css">
+    <link rel="stylesheet" href="../Admin/Adminlte/dist/css/adminlte.css">
     <style>
         .login-container {
             max-width: 400px;
@@ -110,22 +110,34 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === "pending") {
-                    showCustomAlert(data.message, 'success');
-                    verificationCodeContainer.style.display = 'block'; // Mostrar campo de código
-                    submitButton.textContent = 'Verificar Código'; // Cambiar texto del botón
-                } else if (data.status === "success") {
-                    showCustomAlert(data.message, 'success');
-                    setTimeout(() => {
-                        window.location.href = './view/view-dashboard.php';
-                    }, 1500);
-                } else {
-                    showCustomAlert(data.message, 'error');
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text(); // Leer como texto para validar si es JSON
+            })
+            .then(text => {
+                try {
+                    const data = JSON.parse(text); // Intentar parsear como JSON
+                    if (data.status === "pending") {
+                        showCustomAlert(data.message, 'success');
+                        verificationCodeContainer.style.display = 'block'; // Mostrar campo de código
+                        submitButton.textContent = 'Verificar Código'; // Cambiar texto del botón
+                    } else if (data.status === "success") {
+                        showCustomAlert(data.message, 'success');
+                        setTimeout(() => {
+                            window.location.href = './view/view-dashboard.php';
+                        }, 1500);
+                    } else {
+                        showCustomAlert(data.message, 'error');
+                    }
+                } catch (error) {
+                    console.error('Respuesta no válida:', text); // Registrar respuesta no JSON
+                    showCustomAlert('Error en la respuesta del servidor.', 'error');
                 }
             })
             .catch(error => {
+                console.error('Error:', error); // Registrar el error en la consola
                 showCustomAlert('Error en la comunicación con el servidor.', 'error');
             });
         });
