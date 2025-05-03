@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2025 at 04:28 PM
+-- Generation Time: May 03, 2025 at 07:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `macablue`
 --
-CREATE DATABASE IF NOT EXISTS `macablue` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `macablue`;
 
 -- --------------------------------------------------------
 
@@ -42,8 +40,10 @@ CREATE TABLE `carrito` (
 --
 
 INSERT INTO `carrito` (`carrito_id`, `usuario_id`, `producto_id`, `cantidad`, `fecha_agregado`) VALUES
-(2, 2, 27, 1, '2025-03-07 16:22:46'),
-(3, 2, 33, 1, '2025-03-07 16:22:52');
+(6, 2, 30, 3, '2025-03-28 11:10:48'),
+(7, 2, 40, 6, '2025-03-28 11:10:57'),
+(46, 5, 26, 1, '2025-05-02 19:46:19'),
+(47, 5, 26, 1, '2025-05-02 19:50:11');
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,10 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`cliente_id`, `nombreCliente`, `apellidoCliente`, `emailCliente`, `passwordCliente`, `created_at`) VALUES
 (1, 'Juan', 'Quinto', 'juan@gmail.com', '$2y$10$NXTDfjpFyLLdI6UbsbGP7upr9w4Da9yRf1AYwv9KBy7rrwAif4Hce', '2024-11-09 15:18:35'),
 (2, 'Brandon ', 'Bernal Rodriguez', 'brandon@gmail.com', '$2y$10$UcmPB/kOiOEfCps7SNGwQuKMeAbB63dsrekP4C4aLu2HZB0bBUpNy', '2025-03-01 00:43:58'),
-(4, 'Brandon', 'Bernal', 'brandons@gmail.com', '$2y$10$hQLKrXKXhXmere6SWCKmwuZiGEN26aZ559jAyfDdvV1DE8KDFzmAG', '2025-03-14 23:57:29');
+(4, 'Brandon', 'Bernal', 'brandons@gmail.com', '$2y$10$hQLKrXKXhXmere6SWCKmwuZiGEN26aZ559jAyfDdvV1DE8KDFzmAG', '2025-03-14 23:57:29'),
+(5, 'Prueba', '1', 'prueba@gmail.com', '$2y$10$TtOD6v.4/3eok7VX2wIDAenOMYCPxBwYUSU1i52UVDCxKqXJ.Aluu', '2025-04-26 00:14:05'),
+(6, 'prueba2', 'prueba2', 'hola@gmail.com', '$2y$10$Y9uFB6tZ9KtPeGf3UsFZpONg5635w5GlNslHCNMDe1FoWUaVuDP86', '2025-04-27 22:13:00'),
+(7, 'Vanesa', 'Serrano', 'serranovanessa371@gmail.com', '$2y$10$0SfZvy/Wo06dA9N1/nGsJ.OtN6c9zq9F0T7ia10SE7jsMgDzH75X.', '2025-04-28 14:45:51');
 
 -- --------------------------------------------------------
 
@@ -108,7 +111,47 @@ CREATE TABLE `detalle_pedido` (
 --
 
 INSERT INTO `detalle_pedido` (`detalle_id`, `pedido_id`, `producto_id`, `cantidad`, `precio`) VALUES
-(1, 1, 26, 1, 45000.00);
+(1, 1, 26, 1, 45000.00),
+(2, 2, 26, 1, 45000.00),
+(3, 2, 27, 1, 38000.00),
+(4, 3, 28, 1, 52000.00),
+(5, 4, 26, 1, 45000.00),
+(6, 5, 26, 1, 45000.00),
+(7, 6, 26, 1, 45000.00),
+(8, 7, 26, 1, 45000.00),
+(9, 7, 27, 1, 38000.00),
+(10, 8, 30, 1, 48000.00),
+(11, 9, 28, 1, 52000.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mensajes_contacto`
+--
+
+CREATE TABLE `mensajes_contacto` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `asunto` varchar(200) NOT NULL,
+  `mensaje` text NOT NULL,
+  `fecha` datetime NOT NULL,
+  `leido` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mensajes_contacto`
+--
+
+INSERT INTO `mensajes_contacto` (`id`, `nombre`, `email`, `asunto`, `mensaje`, `fecha`, `leido`) VALUES
+(1, 'prueba1', 'prueba@gmail.com', 'prueba', 'prueba', '2025-04-27 06:31:38', 0),
+(2, 'Brandon Stick', 'dardini2002@gmail.com', 'prueba', '1', '2025-04-27 22:22:23', 0),
+(3, 'Juan Pérez', 'juan.perez@example.com', 'Consulta sobre productos', 'Este es un mensaje de prueba para el formulario de contacto.', '2025-05-03 06:29:01', 0),
+(4, 'prueba', 'prueba@gmail.com', 'prueba', 'prueba', '2025-05-03 06:30:33', 0),
+(5, 'Juan Pérez', 'juan.perez@example.com', 'Consulta sobre productos', 'Este es un mensaje de prueba para el formulario de contacto.', '2025-05-03 06:33:10', 0),
+(6, 'Juan Pérez', 'juan.perez@example.com', 'Consulta sobre productos', 'Este es un mensaje de prueba para el formulario de contacto.', '2025-05-03 06:39:39', 0),
+(7, 'Juan Pérez', 'juan.perez@example.com', 'Consulta sobre productos', 'Este es un mensaje de prueba para el formulario de contacto.', '2025-05-03 06:45:38', 0),
+(8, 'Juan Pérez', 'juan.perez@example.com', 'Consulta sobre productos', 'Este es un mensaje de prueba para el formulario de contacto.', '2025-05-03 06:47:17', 0);
 
 -- --------------------------------------------------------
 
@@ -120,7 +163,7 @@ CREATE TABLE `pedidos` (
   `pedido_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `estado` varchar(20) NOT NULL,
+  `estado` enum('En Proceso','Enviado','Entregado','Cancelado') NOT NULL,
   `direccion_envio` text NOT NULL,
   `metodo_pago` varchar(50) NOT NULL,
   `fecha_pedido` datetime DEFAULT current_timestamp()
@@ -131,7 +174,15 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`pedido_id`, `usuario_id`, `total`, `estado`, `direccion_envio`, `metodo_pago`, `fecha_pedido`) VALUES
-(1, 2, 45000.00, 'Pendiente', 'cra 75 # 522', 'tarjeta', '2025-03-07 16:21:56');
+(1, 2, 45000.00, 'En Proceso', 'cra 75 # 522', 'tarjeta', '2025-03-07 16:21:56'),
+(2, 5, 83000.00, 'Enviado', 'prueba', 'tarjeta', '2025-04-27 09:23:02'),
+(3, 5, 52000.00, '', 'hola', 'paypal', '2025-04-27 09:29:36'),
+(4, 5, 45000.00, '', 'prueba', 'transferencia', '2025-04-27 09:34:27'),
+(5, 5, 45000.00, '', 'prueba', 'tarjeta', '2025-04-27 09:38:16'),
+(6, 5, 45000.00, '', 'prueb', 'tarjeta', '2025-04-27 09:42:39'),
+(7, 5, 83000.00, '', '2', 'paypal', '2025-04-27 16:25:27'),
+(8, 6, 48000.00, 'En Proceso', '', '', '2025-04-27 18:18:00'),
+(9, 6, 52000.00, 'En Proceso', '', '', '2025-04-27 18:36:10');
 
 -- --------------------------------------------------------
 
@@ -201,9 +252,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `nombreUsuario`, `apellidoUsuario`, `emailUsuario`, `rolUsuario`, `passwordUsuario`, `created_at`) VALUES
-(1, 'Juan', 'Quinto', 'juan@gmail.com', 'Administrador', '1234', '2024-11-08 08:31:32'),
-(2, 'Brandon', 'Bernal', 'brandona@gmail.com', 'Administrador', '$2y$10$rhwI5c2konbmm2IJUAPrOOx4cH3pdmNr7UlivT1fukSx.akWfA4ES', '2025-03-01 00:45:59'),
-(3, 'Kevin', 'Rodridguez', 'kevin@gmail.com', 'Empleado', '$2y$10$EULpzoxKtdOZorg7vx/teeeI9iOTC/n/3pzUh7fweuGhp9ETK8C.y', '2025-03-08 15:46:02');
+(1, 'Prueba', 'Prueba', 'prueba@gmail.com', 'Empleado', '$2y$10$amr8MSwQ2uql6QJviXRLHO4nraNSE896P3Hx4KFbIeu1nxmeHLx7u', '2024-11-08 08:31:32'),
+(2, 'Brandon', 'Bernal', 'dardini2002@gmail.com', 'Administrador', '$2y$10$49Yd3U2bbg.z99mJJeKDDe1hpw8bAihyt.9Xk2doLARt46q1RXQ02', '2025-03-01 00:45:59'),
+(3, 'Kevin', 'Rodridguez', 'kr5471368@gmail.com', 'Administrador', '$2y$10$7LPpcoNkxoGa1oPCXNImYutRdO.479Le6DTEmk1kVXFFE72Wcog2.', '2025-03-08 15:46:02');
 
 --
 -- Indexes for dumped tables
@@ -239,6 +290,12 @@ ALTER TABLE `detalle_pedido`
   ADD KEY `producto_id` (`producto_id`);
 
 --
+-- Indexes for table `mensajes_contacto`
+--
+ALTER TABLE `mensajes_contacto`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pedidos`
 --
 ALTER TABLE `pedidos`
@@ -267,7 +324,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `carrito_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `carrito_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `categorias`
@@ -279,19 +336,25 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cliente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  MODIFY `detalle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `detalle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `mensajes_contacto`
+--
+ALTER TABLE `mensajes_contacto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `productos`
