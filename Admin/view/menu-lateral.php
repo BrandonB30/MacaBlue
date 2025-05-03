@@ -74,6 +74,16 @@ $userRole = isset($_SESSION['user_role']) ? $_SESSION['user_role'] : '';
                     </a>
                 </li>
                 <?php endif; ?>
+
+                <!-- Visible para 'Administrador' y 'Empleado' -->
+                <?php if($userRole == 'Administrador' || $userRole == 'Empleado'): ?>
+                <li class="nav-item">
+                    <a href="\MacaBlue\Admin\view\contact_messages.php" class="nav-link d-flex align-items-center">
+                        <i class="nav-icon bi bi-people me-2"></i>
+                        <p class="mb-0">Mensajes</p>
+                    </a>
+                </li>
+                <?php endif; ?>
                 
                 <!-- Sólo visible para 'Administrador' -->
                 <?php if($userRole == 'Administrador'): ?>

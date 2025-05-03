@@ -1,20 +1,18 @@
 <?php
 class Database {
-    private $host = "localhost";
-    private $db_name = "macablue";
-    private $username = "root";
-    private $password = "";
-    public $conn;
+    private $connection;
+
+    public function __construct() {
+        try {
+            $this->connection = new PDO('mysql:host=localhost;dbname=macablue', 'root', '');
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Error de conexión: " . $e->getMessage());
+        }
+    }
 
     public function getConnection() {
-        $this->conn = null;
-        try {
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
-            $this->conn->exec("set names utf8");
-        } catch(PDOException $exception) {
-            echo "Connection error: " . $exception->getMessage();
-        }
-        return $this->conn;
+        return $this->connection;
     }
 }
 ?>
