@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 title: '<?php echo $tipoMensaje === "success" ? "¡Registro exitoso!" : "Error"; ?>',
                 text: '<?php echo htmlspecialchars($mensaje); ?>',
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 10000,
                 timerProgressBar: true,
                 position: 'top-end',
                 toast: true

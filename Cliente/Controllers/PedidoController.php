@@ -31,20 +31,28 @@ class PedidoController {
             $total = 0;
             $productos = [];
 
+            // Calcular el total y recopilar los productos
             while ($row = $carrito->fetch_assoc()) {
                 $subtotal = $row['cantidad'] * $row['precioProducto'];
                 $total += $subtotal;
                 $productos[] = $row;
             }
 
+            // Crear el pedido
             $pedido_id = $this->model->crearPedido($usuario_id, $total);
 
+            // Agregar detalles del pedido y actualizar el stock
             foreach ($productos as $producto) {
                 $this->model->agregarDetallePedido($pedido_id, $producto['producto_id'], $producto['cantidad'], $producto['precioProducto']);
                 $this->model->actualizarStock($producto['producto_id'], $producto['cantidad']);
             }
 
+            // Vaciar el carrito
             $this->model->vaciarCarrito($usuario_id);
+
+            // Actualizar el estado del pedido a "En proceso"
+            $this->model->actualizarEstadoPedido($pedido_id, "En proceso");
+
             return true;
         }
         return false;

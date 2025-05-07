@@ -1,143 +1,147 @@
 <?php
 class Pedido {
+    // Conexión a la base de datos
     private $conn;
     private $table_name = "pedidos";
-
+    
+    // Propiedades del pedido
     public $pedido_id;
     public $usuario_id;
     public $fecha_pedido;
-    public $total;
     public $estado;
+    public $total;
     public $direccion_envio;
     public $metodo_pago;
-
+    
+    // Estados válidos para los pedidos (enum)
+    const ESTADOS = [
+        'En Proceso' => 'En Proceso',
+        'Enviado' => 'Enviado',
+        'Entregado' => 'Entregado',
+        'Cancelado' => 'Cancelado'
+    ];
+    
+    // Constructor
     public function __construct($db) {
         $this->conn = $db;
     }
-
+    
+    // Obtener todos los pedidos
     public function readAll() {
-        $query = "SELECT pedido_id, usuario_id, fecha_pedido, total, estado, direccion_envio, metodo_pago 
-                  FROM " . $this->table_name;
+        $query = "SELECT p.* 
+                 FROM " . $this->table_name . " p
+                 ORDER BY p.fecha_pedido DESC";
+        
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt;
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function read() {
-        $query = "SELECT pedido_id, usuario_id, fecha_pedido, total, estado, direccion_envio, metodo_pago 
-                  FROM " . $this->table_name . " 
-                  WHERE pedido_id = :pedido_id";
+    // Obtener un solo pedido por ID
+    public function readOne() {
+        $query = "SELECT p.*, u.nombre, u.apellido 
+                 FROM " . $this->table_name . " p
+                 LEFT JOIN usuarios u ON p.usuario_id = u.id
+                 WHERE p.pedido_id = :pedido_id";
+        
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":pedido_id", $this->pedido_id);
+        $stmt->bindParam(':pedido_id', $this->pedido_id);
         $stmt->execute();
+        
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        if($row) {
+        if ($row) {
             $this->usuario_id = $row['usuario_id'];
             $this->fecha_pedido = $row['fecha_pedido'];
-            $this->total = $row['total'];
             $this->estado = $row['estado'];
+            $this->total = $row['total'];
             $this->direccion_envio = $row['direccion_envio'];
             $this->metodo_pago = $row['metodo_pago'];
+            // Agregamos información del cliente
             return true;
         }
+        
         return false;
     }
     
-    public function create() {
-        $query = "INSERT INTO " . $this->table_name . " 
-                  (usuario_id, fecha_pedido, total, estado, direccion_envio, metodo_pago) 
-                  VALUES 
-                  (:usuario_id, :fecha_pedido, :total, :estado, :direccion_envio, :metodo_pago)";
+    // Actualizar el estado de un pedido
+    public function actualizarEstado() {
+        // Verificar que el estado sea válido
+        if (!array_key_exists($this->estado, self::ESTADOS)) {
+            return false;
+        }
+        
+        $query = "UPDATE " . $this->table_name . "
+                 SET estado = :estado
+                 WHERE pedido_id = :pedido_id";
+        
         $stmt = $this->conn->prepare($query);
         
-        $stmt->bindParam(":usuario_id", $this->usuario_id);
-        $stmt->bindParam(":fecha_pedido", $this->fecha_pedido);
-        $stmt->bindParam(":total", $this->total);
-        $stmt->bindParam(":estado", $this->estado);
-        $stmt->bindParam(":direccion_envio", $this->direccion_envio);
-        $stmt->bindParam(":metodo_pago", $this->metodo_pago);
+        // Sanear los datos
+        $this->estado = htmlspecialchars(strip_tags($this->estado));
+        $this->pedido_id = htmlspecialchars(strip_tags($this->pedido_id));
         
-        return $stmt->execute();
-    }
-    
-    public function update() {
-        $query = "UPDATE " . $this->table_name . " 
-                  SET usuario_id = :usuario_id, 
-                      total = :total, 
-                      estado = :estado, 
-                      direccion_envio = :direccion_envio, 
-                      metodo_pago = :metodo_pago 
-                  WHERE pedido_id = :pedido_id";
-        $stmt = $this->conn->prepare($query);
+        // Vincular parámetros
+        $stmt->bindParam(':estado', $this->estado);
+        $stmt->bindParam(':pedido_id', $this->pedido_id);
         
-        $stmt->bindParam(":usuario_id", $this->usuario_id);
-        $stmt->bindParam(":total", $this->total);
-        $stmt->bindParam(":estado", $this->estado);
-        $stmt->bindParam(":direccion_envio", $this->direccion_envio);
-        $stmt->bindParam(":metodo_pago", $this->metodo_pago);
-        $stmt->bindParam(":pedido_id", $this->pedido_id);
-        
-        return $stmt->execute();
-    }
-    
-    public function updateEstado($nuevoEstado) {
-        $query = "UPDATE " . $this->table_name . " 
-                  SET estado = :estado
-                  WHERE pedido_id = :pedido_id";
-        $stmt = $this->conn->prepare($query);
-        
-        $stmt->bindParam(":estado", $nuevoEstado);
-        $stmt->bindParam(":pedido_id", $this->pedido_id);
-        
+        // Ejecutar la consulta
         if ($stmt->execute()) {
-            $this->estado = $nuevoEstado;
             return true;
         }
+        
         return false;
     }
     
+    // Eliminar un pedido
     public function delete() {
-        try {
-            // Primero eliminar registros relacionados (si hay)
-            $query = "DELETE FROM detalles_pedido WHERE pedido_id = :pedido_id";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(":pedido_id", $this->pedido_id);
-            $stmt->execute();
-            
-            // Luego eliminar el pedido
-            $query = "DELETE FROM " . $this->table_name . " WHERE pedido_id = :pedido_id";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(":pedido_id", $this->pedido_id);
-            return $stmt->execute();
-        } catch(PDOException $e) {
-            throw new Exception("Error al eliminar: " . $e->getMessage());
+        $query = "DELETE FROM " . $this->table_name . " WHERE pedido_id = :pedido_id";
+        
+        $stmt = $this->conn->prepare($query);
+        
+        // Sanear los datos
+        $this->pedido_id = htmlspecialchars(strip_tags($this->pedido_id));
+        
+        // Vincular parámetro
+        $stmt->bindParam(':pedido_id', $this->pedido_id);
+        
+        // Ejecutar la consulta
+        if ($stmt->execute()) {
+            return true;
         }
+        
+        return false;
     }
     
-    // Método para obtener los estados disponibles desde la base de datos
-    public function getEstadosFromDB() {
-        // Consulta para obtener los valores del ENUM
-        $query = "SHOW COLUMNS FROM " . $this->table_name . " WHERE Field = 'estado'";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Validar si un estado es válido según nuestro enum
+    public static function validarEstado($estado) {
+        return array_key_exists($estado, self::ESTADOS);
+    }
+    
+    // Obtener texto descriptivo del estado
+    public static function getEstadoTexto($estado) {
+        return self::ESTADOS[$estado] ?? 'Desconocido';
+    }
+    
+    // Verificar si se permite la transición de estado
+    public function permitirCambioEstado($nuevoEstado) {
+        // Reglas de transición entre estados
+        $transiciones_permitidas = [
+            'En proceso' => ['Enviado', 'Cancelado'],
+            'Enviado' => ['Entregado', 'Cancelado'],
+            'Entregado' => [], // Estado final, no se permite cambio
+            'Cancelado' => []  // Estado final, no se permite cambio
+        ];
         
-        // Parsear los valores del ENUM
-        if ($row && preg_match("/^enum\(\'(.*)\'\)$/", $row['Type'], $matches)) {
-            $estados = array();
-            $enum_values = explode("','", $matches[1]);
-            
-            foreach ($enum_values as $value) {
-                // Convertir valor_enum a Valor Enum (primera letra mayúscula y espacios en lugar de guiones bajos)
-                $display_value = ucfirst(str_replace('_', ' ', $value));
-                $estados[$value] = $display_value;
-            }
-            
-            return $estados;
+        // Obtener el estado actual del pedido
+        $this->readOne();
+        
+        // Verificar si la transición está permitida
+        if (isset($transiciones_permitidas[$this->estado]) && in_array($nuevoEstado, $transiciones_permitidas[$this->estado])) {
+            return true;
         }
         
-        return array();
+        return false;
     }
 }
-?>

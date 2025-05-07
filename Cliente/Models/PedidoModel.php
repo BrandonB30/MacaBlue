@@ -80,5 +80,12 @@ class PedidoModel {
         $stmt->execute();
         return $stmt->get_result();
     }
+
+    public function actualizarEstadoPedido($pedido_id, $estado) {
+        $sql = "UPDATE pedidos SET estado = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("si", $estado, $pedido_id);
+        return $stmt->execute();
+    }
 }
 ?>

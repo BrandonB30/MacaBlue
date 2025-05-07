@@ -1,21 +1,19 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-include_once '../config/conexion.php'; // Incluir conexión a la base de datos
-include_once '../model/model-pedidos.php'; // Incluir el modelo de pedidos
+// Incluir controlador
+require_once '../controller/pedidoController.php';
 require_once '../middleware/AuthMiddleware.php';
 
-// Crear conexión a la base de datos
-$database = new Database();
-$db = $database->getConnection();
+// Verificar autenticación y roles
+AuthMiddleware::requireRole(['Administrador', 'Empleado']);
 
-// Crear instancia de Pedido
-$pedido = new Pedido($db);
+// Instanciar controlador
+$controller = new PedidosController();
 
 // Obtener todos los pedidos
-$pedidos = $pedido->readAll();
-AuthMiddleware::requireRole(['Administrador', 'Empleado']);
+$pedidos = $controller->obtenerTodos();
+
+// Obtener estados disponibles
+$estados = $controller->getEstados();
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +29,39 @@ AuthMiddleware::requireRole(['Administrador', 'Empleado']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="../Adminlte/dist/css/adminlte.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-   
+    <style>
+        /* Estilos para las etiquetas de estado */
+        .badge-pendiente {
+            background-color: #6c757d;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .badge-en_proceso {
+            background-color: #ffc107;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .badge-enviado {
+            background-color: #17a2b8;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .badge-entregado {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .badge-cancelado {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
@@ -58,38 +88,34 @@ AuthMiddleware::requireRole(['Administrador', 'Empleado']);
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <!-- Modificación en la tabla principal para mostrar el estado como texto en lugar de select -->
                             <tbody>
-                                <?php foreach ($pedidos as $pedido): ?>
+                                <?php if (empty($pedidos)): ?>
                                     <tr>
-                                        <td><?= $pedido['pedido_id'] ?></td>
-                                        <td><?= date('d/m/Y H:i', strtotime($pedido['fecha_pedido'])) ?></td>
-                                        <td>
-                                            <span class="badge-<?= $pedido['estado'] ?>">
-                                                <?php 
-                                                switch($pedido['estado']){
-                                                    case 'pendiente': echo 'Pendiente'; break;
-                                                    case 'en_proceso': echo 'En Proceso'; break;
-                                                    case 'enviado': echo 'Enviado'; break;
-                                                    case 'entregado': echo 'Entregado'; break;
-                                                    case 'cancelado': echo 'Cancelado'; break;
-                                                    default: echo ucfirst($pedido['estado']);
-                                                }
-                                                ?>
-                                            </span>
-                                        </td>    
-                                        <td>
-                                            <button type="button" class="btn btn-info btn-sm me-2" 
-                                                    onclick="verDetallesPedido(<?= htmlspecialchars(json_encode($pedido), ENT_QUOTES, 'UTF-8') ?>)">
-                                                <i class="bi bi-eye"></i> Ver Detalles
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm" 
-                                                    onclick="confirmarEliminarPedido(<?= $pedido['pedido_id'] ?>)">
-                                                <i class="bi bi-trash"></i> Eliminar
-                                            </button>
-                                        </td>
+                                        <td colspan="4" class="text-center">No hay pedidos disponibles</td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php else: ?>
+                                    <?php foreach ($pedidos as $pedido): ?>
+                                        <tr>
+                                            <td><?= $pedido['pedido_id'] ?></td>
+                                            <td><?= date('d/m/Y H:i', strtotime($pedido['fecha_pedido'])) ?></td>
+                                            <td>
+                                                <span class="badge-<?= $pedido['estado'] ?>">
+                                                    <?= Pedido::getEstadoTexto($pedido['estado']) ?>
+                                                </span>
+                                            </td>    
+                                            <td>
+                                                <button type="button" class="btn btn-info btn-sm me-2" 
+                                                        onclick="verDetallesPedido(<?= htmlspecialchars(json_encode($pedido), ENT_QUOTES, 'UTF-8') ?>)">
+                                                    <i class="bi bi-eye"></i> Ver Detalles
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm" 
+                                                        onclick="confirmarEliminarPedido(<?= $pedido['pedido_id'] ?>)">
+                                                    <i class="bi bi-trash"></i> Eliminar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -111,7 +137,7 @@ AuthMiddleware::requireRole(['Administrador', 'Empleado']);
                                 <p><strong>ID Pedido:</strong> <span id="modalPedidoId"></span></p>
                                 <p><strong>Cliente:</strong> <span id="modalCliente"></span></p>
                                 <p><strong>Fecha:</strong> <span id="modalFecha"></span></p>
-                                <p><strong>Estado:</strong> <span id="modalEstado"></span></p>
+                                <p><strong>Estado:</strong> <span id="modalEstadoTexto"></span></p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Total:</strong> $<span id="modalTotal"></span></p>
@@ -127,7 +153,7 @@ AuthMiddleware::requireRole(['Administrador', 'Empleado']);
                             <div class="col-md-8">
                                 <div class="mb-3">
                                     <label for="modalCambiarEstado" class="form-label">Estado</label>
-                                    <select class="form-select" id="modalCambiarEstado">
+                                    <select id="modalCambiarEstado" class="form-select">
                                         <?php foreach ($estados as $key => $value): ?>
                                             <option value="<?= $key ?>"><?= $value ?></option>
                                         <?php endforeach; ?>
@@ -156,135 +182,6 @@ AuthMiddleware::requireRole(['Administrador', 'Empleado']);
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.3.0/browser/overlayscrollbars.browser.es6.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-   // Función para actualizar el estado del pedido
-function actualizarEstadoPedido(pedidoId, estado) {
-    const formData = new FormData();
-    formData.append('action', 'actualizarEstado');
-    formData.append('pedido_id', pedidoId);
-    formData.append('estado', estado);
-
-    fetch('../controller/controller-pedidos.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            Swal.fire({
-                icon: 'success',
-                title: 'Estado actualizado',
-                text: 'El estado del pedido ha sido actualizado',
-                timer: 2000,
-                showConfirmButton: false
-            }).then(() => {
-                location.reload(); // Recargar la página
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: data.message || 'No se pudo actualizar el estado'
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error en la petición:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Ocurrió un error al actualizar el estado: ' + error.message
-        });
-    });
-}
-// Función para ver los detalles del pedido en el modal
-function verDetallesPedido(pedido) {
-    console.log("Pedido recibido:", pedido); // Para verificar en consola si los datos llegan
-
-    // Llenar los campos del modal con los datos del pedido
-    document.getElementById('modalPedidoId').textContent = pedido.pedido_id;
-    document.getElementById('modalCliente').textContent = pedido.usuario_id; // Ajustar según tu base de datos
-    document.getElementById('modalFecha').textContent = pedido.fecha_pedido;
-    document.getElementById('modalEstado').textContent = pedido.estado;
-    document.getElementById('modalTotal').textContent = pedido.total;
-    document.getElementById('modalDireccion').textContent = pedido.direccion_envio;
-    document.getElementById('modalMetodoPago').textContent = pedido.metodo_pago;
-
-    // Mostrar el modal
-    var modal = new bootstrap.Modal(document.getElementById('detallesPedidoModal'));
-    modal.show();
-}
-
-
-// Función para eliminar un pedido
-function eliminarPedido(pedidoId) {
-    const formData = new FormData();
-    formData.append('action', 'eliminarPedido');
-    formData.append('pedido_id', pedidoId);
-
-    fetch('../controller/controller-pedidos.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            Swal.fire({
-                icon: 'success',
-                title: 'Pedido eliminado',
-                text: 'El pedido ha sido eliminado correctamente',
-                timer: 2000,
-                showConfirmButton: false
-            }).then(() => {
-                location.reload(); // Recargar la página
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: data.message || 'No se pudo eliminar el pedido'
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error en la petición:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Ocurrió un error al procesar la solicitud: ' + error.message
-        });
-    });
-}
-// Función para confirmar la eliminación del pedido
-function confirmarEliminarPedido(pedidoId) {
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: "Esta acción no se puede deshacer",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            eliminarPedido(pedidoId);
-        }
-    });
-}
-
-
-// Evento para detectar cambios en el estado del pedido
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.estado-pedido').forEach(select => {
-        select.addEventListener('change', function() {
-            const pedidoId = this.getAttribute('data-pedido-id');
-            const nuevoEstado = this.value;
-            actualizarEstadoPedido(pedidoId, nuevoEstado);
-        });
-    });
-});
-
-</script>
-</body> 
+    <script src="../js/pedido.js"></script>
+</body>
 </html>

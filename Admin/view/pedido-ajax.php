@@ -1,95 +1,83 @@
 <?php
-// pedidos-ajax.php - Procesa solo solicitudes AJAX para pedidos
+// Incluir controlador de pedidos
+require_once '../controller/pedidoController.php';
+require_once '../middleware/AuthMiddleware.php';
 
-// Asegurarse de que solo se procesen solicitudes POST
+// Verificar autenticación y roles
+AuthMiddleware::requireRole(['Administrador', 'Empleado']);
+
+// Verificar que sea una petición POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('HTTP/1.1 405 Method Not Allowed');
-    exit('Método no permitido');
+    echo json_encode(['status' => 'error', 'message' => 'Método no permitido']);
+    exit();
 }
 
-// Configurar cabeceras para JSON
-header('Content-Type: application/json');
+// Instanciar controlador
+$controller = new PedidosController();
+$response = [];
 
-// Desactivar la visualización de errores en la salida
-ini_set('display_errors', 0);
-error_reporting(0);
-
-try {
-    // Incluir archivos necesarios
-    require_once "../config/conexion.php";
-    require_once "../model/model-pedido.php";
-    
-    // Crear conexión a la base de datos
-    $database = new Database();
-    $db = $database->getConnection();
-    
-    // Inicializar objeto Pedido
-    $pedido = new Pedido($db);
-    
-    // Procesar diferentes acciones
-    if (isset($_POST['action'])) {
-        switch ($_POST['action']) {
-            case 'actualizarEstado':
-                if (isset($_POST['pedido_id']) && isset($_POST['estado'])) {
-                    $pedido->pedido_id = $_POST['pedido_id'];
-                    
-                    if ($pedido->updateEstado($_POST['estado'])) {
-                        echo json_encode([
-                            'success' => true, 
-                            'message' => 'Estado actualizado correctamente'
-                        ]);
-                    } else {
-                        echo json_encode([
-                            'success' => false, 
-                            'message' => 'Error al actualizar el estado'
-                        ]);
-                    }
-                } else {
-                    echo json_encode([
-                        'success' => false, 
-                        'message' => 'Faltan parámetros requeridos'
-                    ]);
-                }
-                break;
+// Determinar la acción a realizar
+if (isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case 'actualizarEstado':
+            // Verificar que se envíen los parámetros necesarios
+            if (isset($_POST['pedido_id']) && isset($_POST['estado'])) {
+                $pedido_id = $_POST['pedido_id'];
+                $estado = $_POST['estado'];
                 
-            case 'eliminarPedido':
-                if (isset($_POST['pedido_id'])) {
-                    $pedido->pedido_id = $_POST['pedido_id'];
-                    
-                    if ($pedido->delete()) {
-                        echo json_encode([
-                            'success' => true, 
-                            'message' => 'Pedido eliminado correctamente'
-                        ]);
-                    } else {
-                        echo json_encode([
-                            'success' => false, 
-                            'message' => 'Error al eliminar el pedido'
-                        ]);
-                    }
-                } else {
-                    echo json_encode([
-                        'success' => false, 
-                        'message' => 'Falta el ID del pedido'
-                    ]);
-                }
-                break;
+                // Registrar en el log para depuración
+                error_log("Actualizando estado de pedido $pedido_id a '$estado'");
                 
-            default:
-                echo json_encode([
-                    'success' => false, 
-                    'message' => 'Acción no reconocida'
-                ]);
-        }
-    } else {
-        echo json_encode([
-            'success' => false, 
-            'message' => 'No se especificó una acción'
-        ]);
+                // Llamar al método del controlador para actualizar el estado
+                $response = $controller->actualizarEstado($pedido_id, $estado);
+                
+                // Registrar resultado en el log
+                error_log("Resultado de actualización: " . json_encode($response));
+            } else {
+                $response = [
+                    'status' => 'error',
+                    'message' => 'Faltan parámetros requeridos (pedido_id o estado)'
+                ];
+            }
+            break;
+            
+        case 'eliminarPedido':
+            // Verificar que se envíe el ID del pedido
+            if (isset($_POST['pedido_id'])) {
+                $pedido_id = $_POST['pedido_id'];
+                
+                // Registrar en el log para depuración
+                error_log("Eliminando pedido $pedido_id");
+                
+                // Llamar al método del controlador para eliminar el pedido
+                $response = $controller->eliminarPedido($pedido_id);
+                
+                // Registrar resultado en el log
+                error_log("Resultado de eliminación: " . json_encode($response));
+            } else {
+                $response = [
+                    'status' => 'error',
+                    'message' => 'Falta el ID del pedido'
+                ];
+            }
+            break;
+            
+        default:
+            $response = [
+                'status' => 'error',
+                'message' => 'Acción no válida'
+            ];
+            break;
     }
-} catch (Exception $e) {
-    echo json_encode([
-        'success' => false, 
-        'message' => 'Error: ' . $e->getMessage()
-    ]);
+} else {
+    $response = [
+        'status' => 'error',
+        'message' => 'No se especificó ninguna acción'
+    ];
 }
+
+// Devolver respuesta en formato JSON
+header('Content-Type: application/json');
+echo json_encode($response);
+exit();
