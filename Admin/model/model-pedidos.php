@@ -15,10 +15,10 @@ class Pedido {
     
     // Estados válidos para los pedidos (enum)
     const ESTADOS = [
-        'En Proceso' => 'En Proceso',
-        'Enviado' => 'Enviado',
-        'Entregado' => 'Entregado',
-        'Cancelado' => 'Cancelado'
+        'en_proceso' => 'En Proceso',
+        'enviado' => 'Enviado',
+        'entregado' => 'Entregado',
+        'cancelado' => 'Cancelado'
     ];
     
     // Constructor
@@ -40,9 +40,9 @@ class Pedido {
     
     // Obtener un solo pedido por ID
     public function readOne() {
-        $query = "SELECT p.*, u.nombre, u.apellido 
+        $query = "SELECT p.*, u.nombreUsuario AS nombre, u.apellidoUsuario AS apellido 
                  FROM " . $this->table_name . " p
-                 LEFT JOIN usuarios u ON p.usuario_id = u.id
+                 LEFT JOIN usuarios u ON p.usuario_id = u.usuario_id
                  WHERE p.pedido_id = :pedido_id";
         
         $stmt = $this->conn->prepare($query);
@@ -96,21 +96,21 @@ class Pedido {
     
     // Eliminar un pedido
     public function delete() {
-        $query = "DELETE FROM " . $this->table_name . " WHERE pedido_id = :pedido_id";
-        
-        $stmt = $this->conn->prepare($query);
-        
-        // Sanear los datos
+        // Eliminar primero los detalles del pedido
+        $queryDetalles = "DELETE FROM detalle_pedido WHERE pedido_id = :pedido_id";
+        $stmtDetalles = $this->conn->prepare($queryDetalles);
         $this->pedido_id = htmlspecialchars(strip_tags($this->pedido_id));
-        
-        // Vincular parámetro
+        $stmtDetalles->bindParam(':pedido_id', $this->pedido_id);
+        $stmtDetalles->execute();
+
+        // Ahora elimina el pedido principal
+        $query = "DELETE FROM " . $this->table_name . " WHERE pedido_id = :pedido_id";
+        $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':pedido_id', $this->pedido_id);
-        
-        // Ejecutar la consulta
+
         if ($stmt->execute()) {
             return true;
         }
-        
         return false;
     }
     
@@ -128,20 +128,22 @@ class Pedido {
     public function permitirCambioEstado($nuevoEstado) {
         // Reglas de transición entre estados
         $transiciones_permitidas = [
-            'En proceso' => ['Enviado', 'Cancelado'],
-            'Enviado' => ['Entregado', 'Cancelado'],
-            'Entregado' => [], // Estado final, no se permite cambio
-            'Cancelado' => []  // Estado final, no se permite cambio
+            'en_proceso' => ['enviado', 'cancelado'],
+            'enviado' => ['entregado', 'cancelado'],
+            'entregado' => [], // Estado final, no se permite cambio
+            'cancelado' => []  // Estado final, no se permite cambio
         ];
-        
         // Obtener el estado actual del pedido
         $this->readOne();
-        
+        // Log para depuración
+        error_log('Transición de estado | Actual: ' . $this->estado . ' | Nuevo: ' . $nuevoEstado);
+        // Normalizar valores por si hay espacios o mayúsculas
+        $estadoActual = strtolower(trim($this->estado));
+        $nuevoEstado = strtolower(trim($nuevoEstado));
         // Verificar si la transición está permitida
-        if (isset($transiciones_permitidas[$this->estado]) && in_array($nuevoEstado, $transiciones_permitidas[$this->estado])) {
+        if (isset($transiciones_permitidas[$estadoActual]) && in_array($nuevoEstado, $transiciones_permitidas[$estadoActual])) {
             return true;
         }
-        
         return false;
     }
 }

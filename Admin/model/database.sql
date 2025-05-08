@@ -21,6 +21,9 @@ SET time_zone = "+00:00";
 -- Database: `macablue`
 --
 
+CREATE DATABASE IF NOT EXISTS macablue DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE macablue;
+
 -- --------------------------------------------------------
 
 --
@@ -163,7 +166,7 @@ CREATE TABLE `pedidos` (
   `pedido_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `estado` enum('En Proceso','Enviado','Entregado','Cancelado') NOT NULL,
+  `estado` enum('en_proceso','enviado','entregado','cancelado') NOT NULL,
   `direccion_envio` text NOT NULL,
   `metodo_pago` varchar(50) NOT NULL,
   `fecha_pedido` datetime DEFAULT current_timestamp()
@@ -174,15 +177,15 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`pedido_id`, `usuario_id`, `total`, `estado`, `direccion_envio`, `metodo_pago`, `fecha_pedido`) VALUES
-(1, 2, 45000.00, 'En Proceso', 'cra 75 # 522', 'tarjeta', '2025-03-07 16:21:56'),
-(2, 5, 83000.00, 'Enviado', 'prueba', 'tarjeta', '2025-04-27 09:23:02'),
-(3, 5, 52000.00, '', 'hola', 'paypal', '2025-04-27 09:29:36'),
-(4, 5, 45000.00, '', 'prueba', 'transferencia', '2025-04-27 09:34:27'),
-(5, 5, 45000.00, '', 'prueba', 'tarjeta', '2025-04-27 09:38:16'),
-(6, 5, 45000.00, '', 'prueb', 'tarjeta', '2025-04-27 09:42:39'),
-(7, 5, 83000.00, '', '2', 'paypal', '2025-04-27 16:25:27'),
-(8, 6, 48000.00, 'En Proceso', '', '', '2025-04-27 18:18:00'),
-(9, 6, 52000.00, 'En Proceso', '', '', '2025-04-27 18:36:10');
+(1, 2, 45000.00, 'en_proceso', 'cra 75 # 522', 'tarjeta', '2025-03-07 16:21:56'),
+(2, 5, 83000.00, 'enviado', 'prueba', 'tarjeta', '2025-04-27 09:23:02'),
+(3, 5, 52000.00, 'en_proceso', 'hola', 'paypal', '2025-04-27 09:29:36'),
+(4, 5, 45000.00, 'en_proceso', 'prueba', 'transferencia', '2025-04-27 09:34:27'),
+(5, 5, 45000.00, 'en_proceso', 'prueba', 'tarjeta', '2025-04-27 09:38:16'),
+(6, 5, 45000.00, 'en_proceso', 'prueb', 'tarjeta', '2025-04-27 09:42:39'),
+(7, 5, 83000.00, 'enviado', '2', 'paypal', '2025-04-27 16:25:27'),
+(8, 6, 48000.00, 'en_proceso', '', '', '2025-04-27 18:18:00'),
+(9, 6, 52000.00, 'en_proceso', '', '', '2025-04-27 18:36:10');
 
 -- --------------------------------------------------------
 

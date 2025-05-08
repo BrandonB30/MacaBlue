@@ -1,4 +1,4 @@
 <?php
-header("Location: /MacaBlue/view/productos.php");
+header("Location: /macablue/cliente/view/productos.php");
 exit();
 ?>
