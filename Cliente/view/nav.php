@@ -65,7 +65,7 @@ $base_url = '/MacaBlue/cliente';
 
                 <!-- Icono de pedidos -->
                 <?php if (isset($_SESSION['cliente_id'])): ?>
-                    <a class="nav-link me-3" href="/MacaBlue/Cliente/view/pedido.php" style="color: var(--fondo-claro);">
+                    <a class="nav-link me-3 icono-pedido" href="/MacaBlue/Cliente/view/pedido.php" style="color: var(--fondo-claro);">
                         <i class="fa-solid fa-box"></i>
                     </a>
                 <?php else: ?>

@@ -1,0 +1,1111 @@
+<html lang="es"><head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/MacaBlue/cliente/assets/img/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | MacaBlue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/MacaBlue/cliente/assets/css/style.css">
+    <link rel="stylesheet" href="/MacaBlue/cliente/assets/css/nav.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script><style>:root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.1s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-footer-border-color: #eee;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-icon-animations: true;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.1s, box-shadow 0.1s;--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.1s, box-shadow 0.1s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-button-darken-hover: rgba(0, 0, 0, 0.1);--swal2-button-darken-active: rgba(0, 0, 0, 0.2);--swal2-button-transition: box-shadow 0.1s;--swal2-confirm-button-border: 0;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-deny-button-border: 0;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-cancel-button-border: 0;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:all}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:"top-start     top            top-end" "center-start  center         center-end" "bottom-start  bottom-center  bottom-end";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem;container-name:swal2-popup}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;word-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:center;width:auto;margin:1.25em auto 0;padding:0}div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled[disabled]{opacity:.4}div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:hover{background-image:linear-gradient(var(--swal2-button-darken-hover), var(--swal2-button-darken-hover))}div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:active{background-image:linear-gradient(var(--swal2-button-darken-active), var(--swal2-button-darken-active))}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-button-transition);box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border:var(--swal2-confirm-button-border);border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);color:#fff;font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border:var(--swal2-deny-button-border);border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);color:#fff;font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border:var(--swal2-cancel-button-border);border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);color:#fff;font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-outline)}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);color:inherit;font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:rgba(0,0,0,.2)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;word-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:1px solid #d9d9d9;border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:1px solid #b4dbed;outline:none;box-shadow:inset 0 1px 1px rgba(0,0,0,.06),0 0 0 3px rgba(100,150,200,.5)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:"!";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:all}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}@container swal2-popup style(--swal2-icon-animations:true){.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:scale(0.7)}45%{transform:scale(1.05)}80%{transform:scale(0.95)}100%{transform:scale(1)}}@keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(0.5);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}</style>
+<style>:root{--swal2-outline: 0 0 0 3px rgba(100, 150, 200, 0.5);--swal2-container-padding: 0.625em;--swal2-backdrop: rgba(0, 0, 0, 0.4);--swal2-backdrop-transition: background-color 0.1s;--swal2-width: 32em;--swal2-padding: 0 0 1.25em;--swal2-border: none;--swal2-border-radius: 0.3125rem;--swal2-background: white;--swal2-color: #545454;--swal2-footer-border-color: #eee;--swal2-show-animation: swal2-show 0.3s;--swal2-hide-animation: swal2-hide 0.15s forwards;--swal2-icon-zoom: 1;--swal2-icon-animations: true;--swal2-title-padding: 0.8em 1em 0;--swal2-html-container-padding: 1em 1.6em 0.3em;--swal2-input-border-radius: 0.1875em;--swal2-input-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 3px transparent;--swal2-input-background: transparent;--swal2-input-transition: border-color 0.1s, box-shadow 0.1s;--swal2-progress-step-background: #add8e6;--swal2-validation-message-background: #f0f0f0;--swal2-validation-message-color: #666;--swal2-close-button-position: initial;--swal2-close-button-inset: auto;--swal2-close-button-font-size: 2.5em;--swal2-close-button-color: #ccc;--swal2-close-button-transition: color 0.1s, box-shadow 0.1s;--swal2-close-button-outline: initial;--swal2-close-button-box-shadow: inset 0 0 0 3px transparent;--swal2-close-button-focus-box-shadow: inset var(--swal2-outline);--swal2-close-button-hover-transform: none;--swal2-button-darken-hover: rgba(0, 0, 0, 0.1);--swal2-button-darken-active: rgba(0, 0, 0, 0.2);--swal2-button-transition: box-shadow 0.1s;--swal2-confirm-button-border: 0;--swal2-confirm-button-border-radius: 0.25em;--swal2-confirm-button-background-color: #7066e0;--swal2-deny-button-border: 0;--swal2-deny-button-border-radius: 0.25em;--swal2-deny-button-background-color: #dc3741;--swal2-cancel-button-border: 0;--swal2-cancel-button-border-radius: 0.25em;--swal2-cancel-button-background-color: #6e7881;--swal2-toast-show-animation: swal2-toast-show 0.5s;--swal2-toast-hide-animation: swal2-toast-hide 0.1s forwards;--swal2-toast-border: none;--swal2-toast-box-shadow: 0 0 1px hsl(0deg 0% 0% / 0.075), 0 1px 2px hsl(0deg 0% 0% / 0.075), 1px 2px 4px hsl(0deg 0% 0% / 0.075), 1px 3px 8px hsl(0deg 0% 0% / 0.075), 2px 4px 16px hsl(0deg 0% 0% / 0.075)}[data-swal2-theme=dark]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white)}@media(prefers-color-scheme: dark){[data-swal2-theme=auto]{--swal2-dark-theme-black: #19191a;--swal2-dark-theme-white: #e1e1e1;--swal2-background: var(--swal2-dark-theme-black);--swal2-color: var(--swal2-dark-theme-white);--swal2-footer-border-color: #555;--swal2-input-background: color-mix(in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10%);--swal2-validation-message-background: color-mix( in srgb, var(--swal2-dark-theme-black), var(--swal2-dark-theme-white) 10% );--swal2-validation-message-color: var(--swal2-dark-theme-white)}}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto !important}body.swal2-no-backdrop .swal2-container{background-color:rgba(0,0,0,0) !important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:all}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px var(--swal2-backdrop)}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:rgba(0,0,0,0);pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{inset:0 auto auto 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{inset:0 0 auto auto}body.swal2-toast-shown .swal2-container.swal2-top-start,body.swal2-toast-shown .swal2-container.swal2-top-left{inset:0 auto auto 0}body.swal2-toast-shown .swal2-container.swal2-center-start,body.swal2-toast-shown .swal2-container.swal2-center-left{inset:50% auto auto 0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{inset:50% auto auto 50%;transform:translate(-50%, -50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{inset:50% 0 auto auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-start,body.swal2-toast-shown .swal2-container.swal2-bottom-left{inset:auto auto 0 0}body.swal2-toast-shown .swal2-container.swal2-bottom{inset:auto auto 0 50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{inset:auto 0 0 auto}@media print{body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown){overflow-y:scroll !important}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop,.swal2-toast-shown) .swal2-container{position:static !important}}div:where(.swal2-container){display:grid;position:fixed;z-index:1060;inset:0;box-sizing:border-box;grid-template-areas:"top-start     top            top-end" "center-start  center         center-end" "bottom-start  bottom-center  bottom-end";grid-template-rows:minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto);height:100%;padding:var(--swal2-container-padding);overflow-x:hidden;transition:var(--swal2-backdrop-transition);-webkit-overflow-scrolling:touch}div:where(.swal2-container).swal2-backdrop-show,div:where(.swal2-container).swal2-noanimation{background:var(--swal2-backdrop)}div:where(.swal2-container).swal2-backdrop-hide{background:rgba(0,0,0,0) !important}div:where(.swal2-container).swal2-top-start,div:where(.swal2-container).swal2-center-start,div:where(.swal2-container).swal2-bottom-start{grid-template-columns:minmax(0, 1fr) auto auto}div:where(.swal2-container).swal2-top,div:where(.swal2-container).swal2-center,div:where(.swal2-container).swal2-bottom{grid-template-columns:auto minmax(0, 1fr) auto}div:where(.swal2-container).swal2-top-end,div:where(.swal2-container).swal2-center-end,div:where(.swal2-container).swal2-bottom-end{grid-template-columns:auto auto minmax(0, 1fr)}div:where(.swal2-container).swal2-top-start>.swal2-popup{align-self:start}div:where(.swal2-container).swal2-top>.swal2-popup{grid-column:2;place-self:start center}div:where(.swal2-container).swal2-top-end>.swal2-popup,div:where(.swal2-container).swal2-top-right>.swal2-popup{grid-column:3;place-self:start end}div:where(.swal2-container).swal2-center-start>.swal2-popup,div:where(.swal2-container).swal2-center-left>.swal2-popup{grid-row:2;align-self:center}div:where(.swal2-container).swal2-center>.swal2-popup{grid-column:2;grid-row:2;place-self:center center}div:where(.swal2-container).swal2-center-end>.swal2-popup,div:where(.swal2-container).swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;place-self:center end}div:where(.swal2-container).swal2-bottom-start>.swal2-popup,div:where(.swal2-container).swal2-bottom-left>.swal2-popup{grid-column:1;grid-row:3;align-self:end}div:where(.swal2-container).swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;place-self:end center}div:where(.swal2-container).swal2-bottom-end>.swal2-popup,div:where(.swal2-container).swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;place-self:end end}div:where(.swal2-container).swal2-grow-row>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-column:1/4;width:100%}div:where(.swal2-container).swal2-grow-column>.swal2-popup,div:where(.swal2-container).swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}div:where(.swal2-container).swal2-no-transition{transition:none !important}div:where(.swal2-container)[popover]{width:auto;border:0}div:where(.swal2-container) div:where(.swal2-popup){display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0, 100%);width:var(--swal2-width);max-width:100%;padding:var(--swal2-padding);border:var(--swal2-border);border-radius:var(--swal2-border-radius);background:var(--swal2-background);color:var(--swal2-color);font-family:inherit;font-size:1rem;container-name:swal2-popup}div:where(.swal2-container) div:where(.swal2-popup):focus{outline:none}div:where(.swal2-container) div:where(.swal2-popup).swal2-loading{overflow-y:hidden}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable{cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-draggable div:where(.swal2-icon){cursor:grab}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging{cursor:grabbing}div:where(.swal2-container) div:where(.swal2-popup).swal2-dragging div:where(.swal2-icon){cursor:grabbing}div:where(.swal2-container) h2:where(.swal2-title){position:relative;max-width:100%;margin:0;padding:var(--swal2-title-padding);color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;word-wrap:break-word;cursor:initial}div:where(.swal2-container) div:where(.swal2-actions){display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:center;width:auto;margin:1.25em auto 0;padding:0}div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled[disabled]{opacity:.4}div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:hover{background-image:linear-gradient(var(--swal2-button-darken-hover), var(--swal2-button-darken-hover))}div:where(.swal2-container) div:where(.swal2-actions):not(.swal2-loading) .swal2-styled:active{background-image:linear-gradient(var(--swal2-button-darken-active), var(--swal2-button-darken-active))}div:where(.swal2-container) div:where(.swal2-loader){display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 rgba(0,0,0,0) #2778c4 rgba(0,0,0,0)}div:where(.swal2-container) button:where(.swal2-styled){margin:.3125em;padding:.625em 1.1em;transition:var(--swal2-button-transition);box-shadow:0 0 0 3px rgba(0,0,0,0);font-weight:500}div:where(.swal2-container) button:where(.swal2-styled):not([disabled]){cursor:pointer}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm){border:var(--swal2-confirm-button-border);border-radius:var(--swal2-confirm-button-border-radius);background:initial;background-color:var(--swal2-confirm-button-background-color);color:#fff;font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-deny){border:var(--swal2-deny-button-border);border-radius:var(--swal2-deny-button-border-radius);background:initial;background-color:var(--swal2-deny-button-background-color);color:#fff;font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel){border:var(--swal2-cancel-button-border);border-radius:var(--swal2-cancel-button-border-radius);background:initial;background-color:var(--swal2-cancel-button-background-color);color:#fff;font-size:1em}div:where(.swal2-container) button:where(.swal2-styled):focus-visible{outline:none;box-shadow:var(--swal2-action-button-outline)}div:where(.swal2-container) button:where(.swal2-styled)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-footer){margin:1em 0 0;padding:1em 1em 0;border-top:1px solid var(--swal2-footer-border-color);color:inherit;font-size:1em;text-align:center;cursor:initial}div:where(.swal2-container) .swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto !important;overflow:hidden;border-bottom-right-radius:var(--swal2-border-radius);border-bottom-left-radius:var(--swal2-border-radius)}div:where(.swal2-container) div:where(.swal2-timer-progress-bar){width:100%;height:.25em;background:rgba(0,0,0,.2)}div:where(.swal2-container) img:where(.swal2-image){max-width:100%;margin:2em auto 1em;cursor:initial}div:where(.swal2-container) button:where(.swal2-close){position:var(--swal2-close-button-position);inset:var(--swal2-close-button-inset);z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:var(--swal2-close-button-transition);border:none;border-radius:var(--swal2-border-radius);outline:var(--swal2-close-button-outline);background:rgba(0,0,0,0);color:var(--swal2-close-button-color);font-family:monospace;font-size:var(--swal2-close-button-font-size);cursor:pointer;justify-self:end}div:where(.swal2-container) button:where(.swal2-close):hover{transform:var(--swal2-close-button-hover-transform);background:rgba(0,0,0,0);color:#f27474}div:where(.swal2-container) button:where(.swal2-close):focus-visible{outline:none;box-shadow:var(--swal2-close-button-focus-box-shadow)}div:where(.swal2-container) button:where(.swal2-close)::-moz-focus-inner{border:0}div:where(.swal2-container) div:where(.swal2-html-container){z-index:1;justify-content:center;margin:0;padding:var(--swal2-html-container-padding);overflow:auto;color:inherit;font-size:1.125em;font-weight:normal;line-height:normal;text-align:center;word-wrap:break-word;word-break:break-word;cursor:initial}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:where(.swal2-container) label:where(.swal2-checkbox){margin:1em 2em 3px}div:where(.swal2-container) input:where(.swal2-input),div:where(.swal2-container) input:where(.swal2-file),div:where(.swal2-container) textarea:where(.swal2-textarea){box-sizing:border-box;width:auto;transition:var(--swal2-input-transition);border:1px solid #d9d9d9;border-radius:var(--swal2-input-border-radius);background:var(--swal2-input-background);box-shadow:var(--swal2-input-box-shadow);color:inherit;font-size:1.125em}div:where(.swal2-container) input:where(.swal2-input).swal2-inputerror,div:where(.swal2-container) input:where(.swal2-file).swal2-inputerror,div:where(.swal2-container) textarea:where(.swal2-textarea).swal2-inputerror{border-color:#f27474 !important;box-shadow:0 0 2px #f27474 !important}div:where(.swal2-container) input:where(.swal2-input):focus,div:where(.swal2-container) input:where(.swal2-file):focus,div:where(.swal2-container) textarea:where(.swal2-textarea):focus{border:1px solid #b4dbed;outline:none;box-shadow:inset 0 1px 1px rgba(0,0,0,.06),0 0 0 3px rgba(100,150,200,.5)}div:where(.swal2-container) input:where(.swal2-input)::placeholder,div:where(.swal2-container) input:where(.swal2-file)::placeholder,div:where(.swal2-container) textarea:where(.swal2-textarea)::placeholder{color:#ccc}div:where(.swal2-container) .swal2-range{margin:1em 2em 3px;background:var(--swal2-background)}div:where(.swal2-container) .swal2-range input{width:80%}div:where(.swal2-container) .swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}div:where(.swal2-container) .swal2-range input,div:where(.swal2-container) .swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}div:where(.swal2-container) .swal2-input{height:2.625em;padding:0 .75em}div:where(.swal2-container) .swal2-file{width:75%;margin-right:auto;margin-left:auto;background:var(--swal2-input-background);font-size:1.125em}div:where(.swal2-container) .swal2-textarea{height:6.75em;padding:.75em}div:where(.swal2-container) .swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:var(--swal2-input-background);color:inherit;font-size:1.125em}div:where(.swal2-container) .swal2-radio,div:where(.swal2-container) .swal2-checkbox{align-items:center;justify-content:center;background:var(--swal2-background);color:inherit}div:where(.swal2-container) .swal2-radio label,div:where(.swal2-container) .swal2-checkbox label{margin:0 .6em;font-size:1.125em}div:where(.swal2-container) .swal2-radio input,div:where(.swal2-container) .swal2-checkbox input{flex-shrink:0;margin:0 .4em}div:where(.swal2-container) label:where(.swal2-input-label){display:flex;justify-content:center;margin:1em auto 0}div:where(.swal2-container) div:where(.swal2-validation-message){align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:var(--swal2-validation-message-background);color:var(--swal2-validation-message-color);font-size:1em;font-weight:300}div:where(.swal2-container) div:where(.swal2-validation-message)::before{content:"!";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}div:where(.swal2-container) .swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:rgba(0,0,0,0);font-weight:600}div:where(.swal2-container) .swal2-progress-steps li{display:inline-block;position:relative}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:var(--swal2-progress-step-background);color:#fff}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:var(--swal2-progress-step-background)}div:where(.swal2-container) .swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}div:where(.swal2-icon){position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;zoom:var(--swal2-icon-zoom);border:.25em solid rgba(0,0,0,0);border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;user-select:none}div:where(.swal2-icon) .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}div:where(.swal2-icon).swal2-error{border-color:#f27474;color:#f27474}div:where(.swal2-icon).swal2-error .swal2-x-mark{position:relative;flex-grow:1}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-error.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-error.swal2-icon-show .swal2-x-mark{animation:swal2-animate-error-x-mark .5s}}div:where(.swal2-icon).swal2-warning{border-color:#f8bb86;color:#f8bb86}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-warning.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-warning.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .5s}}div:where(.swal2-icon).swal2-info{border-color:#3fc3ee;color:#3fc3ee}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-info.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-info.swal2-icon-show .swal2-icon-content{animation:swal2-animate-i-mark .8s}}div:where(.swal2-icon).swal2-question{border-color:#87adbd;color:#87adbd}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-question.swal2-icon-show{animation:swal2-animate-error-icon .5s}div:where(.swal2-icon).swal2-question.swal2-icon-show .swal2-icon-content{animation:swal2-animate-question-mark .8s}}div:where(.swal2-icon).swal2-success{border-color:#a5dc86;color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;border-radius:50%}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}div:where(.swal2-icon).swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}div:where(.swal2-icon).swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-0.25em;left:-0.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}div:where(.swal2-icon).swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}div:where(.swal2-icon).swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}@container swal2-popup style(--swal2-icon-animations:true){div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-animate-success-line-tip .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-animate-success-line-long .75s}div:where(.swal2-icon).swal2-success.swal2-icon-show .swal2-success-circular-line-right{animation:swal2-rotate-success-circular-line 4.25s ease-in}}[class^=swal2]{-webkit-tap-highlight-color:rgba(0,0,0,0)}.swal2-show{animation:var(--swal2-show-animation)}.swal2-hide{animation:var(--swal2-hide-animation)}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-toast{box-sizing:border-box;grid-column:1/4 !important;grid-row:1/4 !important;grid-template-columns:min-content auto min-content;padding:1em;overflow-y:hidden;border:var(--swal2-toast-border);background:var(--swal2-background);box-shadow:var(--swal2-toast-box-shadow);pointer-events:all}.swal2-toast>*{grid-column:2}.swal2-toast h2:where(.swal2-title){margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-toast .swal2-loading{justify-content:center}.swal2-toast input:where(.swal2-input){height:2em;margin:.5em;font-size:1em}.swal2-toast .swal2-validation-message{font-size:1em}.swal2-toast div:where(.swal2-footer){margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-toast button:where(.swal2-close){grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-toast div:where(.swal2-html-container){margin:.5em 1em;padding:0;overflow:initial;font-size:1em;text-align:initial}.swal2-toast div:where(.swal2-html-container):empty{padding:0}.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:bold}.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-toast div:where(.swal2-actions){justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-toast button:where(.swal2-styled){margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;border-radius:50%}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-0.8em;left:-0.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-0.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}@container swal2-popup style(--swal2-icon-animations:true){.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{animation:swal2-toast-animate-success-line-tip .75s}.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{animation:swal2-toast-animate-success-line-long .75s}}.swal2-toast.swal2-show{animation:var(--swal2-toast-show-animation)}.swal2-toast.swal2-hide{animation:var(--swal2-toast-hide-animation)}@keyframes swal2-show{0%{transform:scale(0.7)}45%{transform:scale(1.05)}80%{transform:scale(0.95)}100%{transform:scale(1)}}@keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(0.5);opacity:0}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-0.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(0.4);opacity:0}50%{margin-top:1.625em;transform:scale(0.4);opacity:0}80%{margin-top:-0.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0deg);opacity:1}}@keyframes swal2-rotate-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-toast-show{0%{transform:translateY(-0.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(0.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0deg)}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-0.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}</style></head>
+
+<body>
+<!-- Mensaje de inicio de sesión exitoso -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleccionar todos los formularios de añadir al carrito
+    const addToCartForms = document.querySelectorAll('form[action="../controllers/CarritoController.php?action=agregarProducto"]');
+    
+    addToCartForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            // Verificar si el usuario está logueado
+            const isLoggedIn = false;
+            
+            if (!isLoggedIn) {
+                e.preventDefault(); // Detener el envío del formulario
+                
+                // Mostrar SweetAlert2
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Acceso denegado',
+                    text: 'Debes iniciar sesión para añadir productos al carrito.',
+                    confirmButtonText: 'Iniciar sesión',
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '../view/ingreso.php';
+                    }
+                });
+            }
+            // Si está logueado, el formulario se envía normalmente
+        });
+    });
+});
+</script>
+<!-- Incluir el archivo de navegación -->
+
+
+
+
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/MacaBlue/cliente/assets/img/favicon.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Búsqueda - &lt;br /&gt;
+&lt;b&gt;Warning&lt;/b&gt;:  Undefined variable $query in &lt;b&gt;C:\xampp\htdocs\MacaBlue\Cliente\view\nav.php&lt;/b&gt; on line &lt;b&gt;15&lt;/b&gt;&lt;br /&gt;
+</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/MacaBlue/cliente/assets/css/style.css">
+    <link rel="stylesheet" href="/MacaBlue/cliente/assets/css/nav.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-custom" style="background-color: var(--fondo-oscuro);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/MacaBlue/Cliente/view/productos.php" style="color: var(--fucsia-claro); font-weight: bold;">MacaBlue</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/MacaBlue/Cliente/view/productos.php">Inicio</a>
+                    </li>
+                                                                        <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdownDamas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Damas                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownDamas">
+                                                                            <li><a class="dropdown-item" href="/MacaBlue/Cliente/view/productos.php?subcategoria=Blusas">Blusas</a></li>
+                                                                            <li><a class="dropdown-item" href="/MacaBlue/Cliente/view/productos.php?subcategoria=Pantalones">Pantalones</a></li>
+                                                                            <li><a class="dropdown-item" href="/MacaBlue/Cliente/view/productos.php?subcategoria=Vestidos">Vestidos</a></li>
+                                                                            <li><a class="dropdown-item" href="/MacaBlue/Cliente/view/productos.php?subcategoria=Chaquetas">Chaquetas</a></li>
+                                                                    </ul>
+                            </li>
+                                                                <li class="nav-item">
+                        <a class="nav-link" href="/MacaBlue/Cliente/view/sobre_nosotros.php">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/MacaBlue/Cliente/view/contacto.php">Contacto</a>
+                    </li>
+                </ul>
+
+                <!-- Barra de búsqueda centrada -->
+                <form class="d-flex mx-4" action="/MacaBlue/Cliente/view/buscar.php" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" name="query">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+
+                <!-- Icono de pedidos -->
+                                    <a class="nav-link me-3" href="#" onclick="mostrarAlertaNoLogueado1()" style="color: var(--fondo-claro);">
+                        <i class="fa-solid fa-box"></i>
+                    </a>
+                
+                <!-- Icono de carrito -->
+                                    <a class="nav-link me-3" href="#" onclick="mostrarAlertaNoLogueado()" style="color: var(--fondo-claro);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                
+                <!-- Menú desplegable para usuario logueado -->
+                                    <a class="nav-link" href="/MacaBlue/cliente/view/ingreso.php" style="color: var(--fucsia-claro); font-weight: bold;">
+                        <i class="fas fa-user"></i> Iniciar sesión
+                    </a>
+                            </div>
+        </div>
+    </nav>
+            <script>
+            function mostrarAlertaNoLogueado() {
+                Swal.fire({
+                icon: 'warning',
+                title: '¡Debes iniciar sesión!',
+                text: 'Por favor, ingresa al sistema para ver tu carrito.',
+                confirmButtonText: 'Ir a Iniciar Sesión',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/MacaBlue/cliente/view/ingreso.php'; // Redirige al login
+                }
+            });
+        }
+        </script>
+        <script>
+            function mostrarAlertaNoLogueado1() {
+                Swal.fire({
+                icon: 'warning',
+                title: '¡Debes iniciar sesión!',
+                text: 'Por favor, ingresa al sistema para ver tus pedidos.',
+                confirmButtonText: 'Ir a Iniciar Sesión',
+                confirmButtonColor: '#3085d6',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/MacaBlue/cliente/view/ingreso.php'; // Redirige al login
+                }
+            });
+        }
+</script>
+
+
+
+<div class="container mt-5">
+    <div class="row">
+                                    <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal26">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen1.jpg" class="card-img-top product-img" alt="Blusa Casual Blanca">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Blusa Casual Blanca</h5>
+                            <p class="price">$45,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal26">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal26" tabindex="-1" aria-labelledby="productModalLabel26" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel26">Blusa Casual Blanca</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen1.jpg" class="img-fluid" alt="Blusa Casual Blanca">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Blusa blanca con diseño casual y cuello en V, ideal para ocasiones informales.</p>
+                                        <p><strong>Color:</strong> Blanco</p>
+                                        <p><strong>Material:</strong> Poliéster</p>
+                                        <p><strong>Tallas:</strong> M,L</p>
+                                        <p class="price">Precio: $45,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="26">
+                                            <div class="mb-3">
+                                                <label for="cantidad26" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad26" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal27">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen2.jpg" class="card-img-top product-img" alt="Blusa Rosa Suave">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Blusa Rosa Suave</h5>
+                            <p class="price">$38,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal27">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal27" tabindex="-1" aria-labelledby="productModalLabel27" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel27">Blusa Rosa Suave</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen2.jpg" class="img-fluid" alt="Blusa Rosa Suave">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Blusa en color rosa suave con mangas dobladas, perfecta para días casuales.</p>
+                                        <p><strong>Color:</strong> Rosa</p>
+                                        <p><strong>Material:</strong> Algodón</p>
+                                        <p><strong>Tallas:</strong> S,M,L</p>
+                                        <p class="price">Precio: $38,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="27">
+                                            <div class="mb-3">
+                                                <label for="cantidad27" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad27" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal28">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen3.jpg" class="card-img-top product-img" alt="Blusa Floral">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Blusa Floral</h5>
+                            <p class="price">$52,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal28">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal28" tabindex="-1" aria-labelledby="productModalLabel28" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel28">Blusa Floral</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen3.jpg" class="img-fluid" alt="Blusa Floral">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Blusa con estampado floral en tonos cálidos, ideal para una apariencia fresca y veraniega.</p>
+                                        <p><strong>Color:</strong> Multicolor</p>
+                                        <p><strong>Material:</strong> Poliéster</p>
+                                        <p><strong>Tallas:</strong> M,XL</p>
+                                        <p class="price">Precio: $52,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="28">
+                                            <div class="mb-3">
+                                                <label for="cantidad28" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad28" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal29">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen4.jpg" class="card-img-top product-img" alt="Blusa Clásica Beige">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Blusa Clásica Beige</h5>
+                            <p class="price">$40,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal29">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal29" tabindex="-1" aria-labelledby="productModalLabel29" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel29">Blusa Clásica Beige</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen4.jpg" class="img-fluid" alt="Blusa Clásica Beige">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Blusa beige con botones, estilo clásico y sofisticado.</p>
+                                        <p><strong>Color:</strong> Beige</p>
+                                        <p><strong>Material:</strong> Lino</p>
+                                        <p><strong>Tallas:</strong> M,L</p>
+                                        <p class="price">Precio: $40,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="29">
+                                            <div class="mb-3">
+                                                <label for="cantidad29" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad29" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal30">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen5.jpg" class="card-img-top product-img" alt="Blusa Elegante Amarilla">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Blusa Elegante Amarilla</h5>
+                            <p class="price">$48,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal30">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal30" tabindex="-1" aria-labelledby="productModalLabel30" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel30">Blusa Elegante Amarilla</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen5.jpg" class="img-fluid" alt="Blusa Elegante Amarilla">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Blusa amarilla de manga larga y cuello en V, ideal para ocasiones especiales.</p>
+                                        <p><strong>Color:</strong> Amarillo</p>
+                                        <p><strong>Material:</strong> Poliéster</p>
+                                        <p><strong>Tallas:</strong> S,M,L,XL</p>
+                                        <p class="price">Precio: $48,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="30">
+                                            <div class="mb-3">
+                                                <label for="cantidad30" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad30" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal31">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen6.jpg" class="card-img-top product-img" alt="Pantalón Negro Casual">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pantalón Negro Casual</h5>
+                            <p class="price">$60,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal31">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal31" tabindex="-1" aria-labelledby="productModalLabel31" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel31">Pantalón Negro Casual</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen6.jpg" class="img-fluid" alt="Pantalón Negro Casual">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Pantalón negro casual perfecto para combinar con distintas prendas.</p>
+                                        <p><strong>Color:</strong> Negro</p>
+                                        <p><strong>Material:</strong> Algodón</p>
+                                        <p><strong>Tallas:</strong> M,L,XL</p>
+                                        <p class="price">Precio: $60,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="31">
+                                            <div class="mb-3">
+                                                <label for="cantidad31" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad31" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal32">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen7.jpg" class="card-img-top product-img" alt="Pantalón Cuadros Gris">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pantalón Cuadros Gris</h5>
+                            <p class="price">$58,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal32">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal32" tabindex="-1" aria-labelledby="productModalLabel32" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel32">Pantalón Cuadros Gris</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen7.jpg" class="img-fluid" alt="Pantalón Cuadros Gris">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Pantalón con diseño de cuadros en tonos grises, ideal para una apariencia formal.</p>
+                                        <p><strong>Color:</strong> Gris</p>
+                                        <p><strong>Material:</strong> Poliéster</p>
+                                        <p><strong>Tallas:</strong> S,M,L</p>
+                                        <p class="price">Precio: $58,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="32">
+                                            <div class="mb-3">
+                                                <label for="cantidad32" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad32" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal33">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen8.jpg" class="card-img-top product-img" alt="Pantalón Beige Elegante">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pantalón Beige Elegante</h5>
+                            <p class="price">$62,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal33">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal33" tabindex="-1" aria-labelledby="productModalLabel33" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel33">Pantalón Beige Elegante</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen8.jpg" class="img-fluid" alt="Pantalón Beige Elegante">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Pantalón beige clásico, cómodo y versátil para múltiples ocasiones.</p>
+                                        <p><strong>Color:</strong> Beige</p>
+                                        <p><strong>Material:</strong> Lino</p>
+                                        <p><strong>Tallas:</strong> M,L</p>
+                                        <p class="price">Precio: $62,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="33">
+                                            <div class="mb-3">
+                                                <label for="cantidad33" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad33" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal34">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen9.jpg" class="card-img-top product-img" alt="Pantalón Negro Ajustado">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pantalón Negro Ajustado</h5>
+                            <p class="price">$55,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal34">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal34" tabindex="-1" aria-labelledby="productModalLabel34" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel34">Pantalón Negro Ajustado</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen9.jpg" class="img-fluid" alt="Pantalón Negro Ajustado">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Pantalón negro ajustado que complementa un estilo moderno y elegante.</p>
+                                        <p><strong>Color:</strong> Negro</p>
+                                        <p><strong>Material:</strong> Poliéster</p>
+                                        <p><strong>Tallas:</strong> S,M,L,XL</p>
+                                        <p class="price">Precio: $55,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="34">
+                                            <div class="mb-3">
+                                                <label for="cantidad34" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad34" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal35">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen10.jpg" class="card-img-top product-img" alt="Pantalón Estampado">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Pantalón Estampado</h5>
+                            <p class="price">$53,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal35">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal35" tabindex="-1" aria-labelledby="productModalLabel35" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel35">Pantalón Estampado</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen10.jpg" class="img-fluid" alt="Pantalón Estampado">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Pantalón con estampado colorido, ideal para un look llamativo y fresco.</p>
+                                        <p><strong>Color:</strong> Blanco</p>
+                                        <p><strong>Material:</strong> Algodón</p>
+                                        <p><strong>Tallas:</strong> M,L</p>
+                                        <p class="price">Precio: $53,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="35">
+                                            <div class="mb-3">
+                                                <label for="cantidad35" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad35" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal36">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen11.jpg" class="card-img-top product-img" alt="Vestido Beige Casual">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Vestido Beige Casual</h5>
+                            <p class="price">$75,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal36">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal36" tabindex="-1" aria-labelledby="productModalLabel36" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel36">Vestido Beige Casual</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen11.jpg" class="img-fluid" alt="Vestido Beige Casual">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Vestido beige de estilo casual, cómodo y versátil para distintas ocasiones.</p>
+                                        <p><strong>Color:</strong> Beige</p>
+                                        <p><strong>Material:</strong> Lino</p>
+                                        <p><strong>Tallas:</strong> S,M,L</p>
+                                        <p class="price">Precio: $75,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="36">
+                                            <div class="mb-3">
+                                                <label for="cantidad36" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad36" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal37">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen12.jpg" class="card-img-top product-img" alt="Vestido Largo Elegante">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Vestido Largo Elegante</h5>
+                            <p class="price">$85,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal37">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal37" tabindex="-1" aria-labelledby="productModalLabel37" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel37">Vestido Largo Elegante</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen12.jpg" class="img-fluid" alt="Vestido Largo Elegante">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Vestido largo en negro, ideal para eventos elegantes.</p>
+                                        <p><strong>Color:</strong> Negro</p>
+                                        <p><strong>Material:</strong> Seda</p>
+                                        <p><strong>Tallas:</strong> M,L,XL</p>
+                                        <p class="price">Precio: $85,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="37">
+                                            <div class="mb-3">
+                                                <label for="cantidad37" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad37" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal38">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen13.jpg" class="card-img-top product-img" alt="Vestido Floral Veraniego">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Vestido Floral Veraniego</h5>
+                            <p class="price">$70,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal38">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal38" tabindex="-1" aria-labelledby="productModalLabel38" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel38">Vestido Floral Veraniego</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen13.jpg" class="img-fluid" alt="Vestido Floral Veraniego">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Vestido con estampado floral, perfecto para el verano.</p>
+                                        <p><strong>Color:</strong> Multicolor</p>
+                                        <p><strong>Material:</strong> Algodón</p>
+                                        <p><strong>Tallas:</strong> S,M,L</p>
+                                        <p class="price">Precio: $70,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="38">
+                                            <div class="mb-3">
+                                                <label for="cantidad38" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad38" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal39">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen14.jpg" class="card-img-top product-img" alt="Vestido Rojo Ajustado">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Vestido Rojo Ajustado</h5>
+                            <p class="price">$78,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal39">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal39" tabindex="-1" aria-labelledby="productModalLabel39" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel39">Vestido Rojo Ajustado</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen14.jpg" class="img-fluid" alt="Vestido Rojo Ajustado">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Vestido rojo ajustado, ideal para una salida nocturna.</p>
+                                        <p><strong>Color:</strong> Rojo</p>
+                                        <p><strong>Material:</strong> Poliéster</p>
+                                        <p><strong>Tallas:</strong> M,L</p>
+                                        <p class="price">Precio: $78,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="39">
+                                            <div class="mb-3">
+                                                <label for="cantidad39" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad39" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal40">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen15.jpg" class="card-img-top product-img" alt="Vestido Blanco de Encaje">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Vestido Blanco de Encaje</h5>
+                            <p class="price">$90,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal40">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal40" tabindex="-1" aria-labelledby="productModalLabel40" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel40">Vestido Blanco de Encaje</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen15.jpg" class="img-fluid" alt="Vestido Blanco de Encaje">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Vestido blanco de encaje con un toque romántico.</p>
+                                        <p><strong>Color:</strong> Blanco</p>
+                                        <p><strong>Material:</strong> Encaje</p>
+                                        <p><strong>Tallas:</strong> S,M,L</p>
+                                        <p class="price">Precio: $90,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="40">
+                                            <div class="mb-3">
+                                                <label for="cantidad40" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad40" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal41">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen16.jpg" class="card-img-top product-img" alt="Chaqueta Negra Acolchada">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Chaqueta Negra Acolchada</h5>
+                            <p class="price">$120,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal41">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal41" tabindex="-1" aria-labelledby="productModalLabel41" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel41">Chaqueta Negra Acolchada</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen16.jpg" class="img-fluid" alt="Chaqueta Negra Acolchada">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Chaqueta negra acolchada, perfecta para el invierno.</p>
+                                        <p><strong>Color:</strong> Negro</p>
+                                        <p><strong>Material:</strong> Nylon</p>
+                                        <p><strong>Tallas:</strong> M,L,XL</p>
+                                        <p class="price">Precio: $120,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="41">
+                                            <div class="mb-3">
+                                                <label for="cantidad41" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad41" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal42">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen17.jpg" class="card-img-top product-img" alt="Chaqueta Casual Azul">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Chaqueta Casual Azul</h5>
+                            <p class="price">$95,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal42">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal42" tabindex="-1" aria-labelledby="productModalLabel42" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel42">Chaqueta Casual Azul</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen17.jpg" class="img-fluid" alt="Chaqueta Casual Azul">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Chaqueta azul casual, ideal para días frescos.</p>
+                                        <p><strong>Color:</strong> Azul</p>
+                                        <p><strong>Material:</strong> Algodón</p>
+                                        <p><strong>Tallas:</strong> S,M,L</p>
+                                        <p class="price">Precio: $95,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="42">
+                                            <div class="mb-3">
+                                                <label for="cantidad42" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad42" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal43">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen18.jpg" class="card-img-top product-img" alt="Chaqueta Verde Militar">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Chaqueta Verde Militar</h5>
+                            <p class="price">$110,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal43">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal43" tabindex="-1" aria-labelledby="productModalLabel43" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel43">Chaqueta Verde Militar</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen18.jpg" class="img-fluid" alt="Chaqueta Verde Militar">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Chaqueta estilo militar en verde, perfecta para un look urbano.</p>
+                                        <p><strong>Color:</strong> Verde</p>
+                                        <p><strong>Material:</strong> Poliéster</p>
+                                        <p><strong>Tallas:</strong> M,L</p>
+                                        <p class="price">Precio: $110,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="43">
+                                            <div class="mb-3">
+                                                <label for="cantidad43" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad43" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal44">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen19.jpg" class="card-img-top product-img" alt="Chaqueta de Cuero Negra">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Chaqueta de Cuero Negra</h5>
+                            <p class="price">$150,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal44">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal44" tabindex="-1" aria-labelledby="productModalLabel44" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel44">Chaqueta de Cuero Negra</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen19.jpg" class="img-fluid" alt="Chaqueta de Cuero Negra">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Chaqueta de cuero negra clásica, imprescindible en cualquier guardarropa.</p>
+                                        <p><strong>Color:</strong> Negro</p>
+                                        <p><strong>Material:</strong> Cuero</p>
+                                        <p><strong>Tallas:</strong> M,L</p>
+                                        <p class="price">Precio: $150,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="44">
+                                            <div class="mb-3">
+                                                <label for="cantidad44" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad44" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-md-4 mb-4">
+                    <div class="card product-card" data-bs-toggle="modal" data-bs-target="#productModal45">
+                                                <img src="/MacaBlue/Admin/uploads/Imagen20.jpg" class="card-img-top product-img" alt="Chaqueta Ligera Beige">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Chaqueta Ligera Beige</h5>
+                            <p class="price">$85,000.00</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal45">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="productModal45" tabindex="-1" aria-labelledby="productModalLabel45" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel45">Chaqueta Ligera Beige</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <img src="/MacaBlue/Admin/uploads/Imagen20.jpg" class="img-fluid" alt="Chaqueta Ligera Beige">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Descripción:</strong> Chaqueta ligera en color beige, ideal para primavera.</p>
+                                        <p><strong>Color:</strong> Beige</p>
+                                        <p><strong>Material:</strong> Lino</p>
+                                        <p><strong>Tallas:</strong> S,M,L,XL</p>
+                                        <p class="price">Precio: $85,000.00</p>
+                                        <form action="../controllers/CarritoController.php?action=agregarProducto" method="POST">
+                                            <input type="hidden" name="producto_id" value="45">
+                                            <div class="mb-3">
+                                                <label for="cantidad45" class="form-label">Cantidad:</label>
+                                                <input type="number" id="cantidad45" name="cantidad" class="form-control" min="1" value="1" required="">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        </div>
+</div>
+
+<link rel="stylesheet" href="/MacaBlue/Cliente/assets/css/style.css">
+<footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+        <p>© 2024 MacaBlu. Todos los derechos reservados.</p>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body></html>
