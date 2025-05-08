@@ -49,11 +49,35 @@ class AuthMiddleware {
      * @param string $redirectTo - URL a la que redirigir si no tiene permiso
      */
     public static function requireRole($allowedRoles, $redirectTo = '/MacaBlue/Admin/view/access-denied.php') {
-        self::requireAuth();
-        
+        // Iniciar sesión solo si no está ya iniciada
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $isAjax = (
+            !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'
+        );
+
+        if(!self::isAuthenticated()) {
+            if ($isAjax) {
+                header('Content-Type: application/json');
+                echo json_encode(['status' => 'error', 'message' => 'No autenticado']);
+                exit;
+            } else {
+                header("Location: /MacaBlue/Admin/login.php");
+                exit;
+            }
+        }
+
         if(!self::hasRole($allowedRoles)) {
-            header("Location: $redirectTo");
-            exit;
+            if ($isAjax) {
+                header('Content-Type: application/json');
+                echo json_encode(['status' => 'error', 'message' => 'Sin permisos']);
+                exit;
+            } else {
+                header("Location: $redirectTo");
+                exit;
+            }
         }
     }
 }

@@ -57,7 +57,7 @@ class PedidosController {
         if (!$this->pedido->permitirCambioEstado($estado)) {
             return [
                 'status' => 'error',
-                'message' => 'No se permite esta transición de estado'
+                'message' => 'No puedes cambiar directamente a este estado. Debes seguir el flujo: En Proceso → Enviado → Entregado. Si deseas cancelar, puedes hacerlo en cualquier momento.'
             ];
         }
         
@@ -95,10 +95,10 @@ class PedidosController {
     // Obtener todos los estados disponibles
     public function getEstados() {
         return [
-            'En proceso' => 'En Proceso',
-            'Enviado' => 'Enviado',
-            'Entregado' => 'Entregado',
-            'Cancelado' => 'Cancelado'
+            'en_proceso' => 'En Proceso',
+            'enviado' => 'Enviado',
+            'entregado' => 'Entregado',
+            'cancelado' => 'Cancelado'
         ];
     }
 }

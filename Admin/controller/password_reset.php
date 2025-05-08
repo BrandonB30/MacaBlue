@@ -1,11 +1,11 @@
 <?php
-// Primero cargar el autoloader para tener acceso a PHPMailer
+// Cargar el autoloader de Composer correctamente
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 // Luego las declaraciones use
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
-require '../vendor/autoload.php';
 
 // Iniciar sesión y resto de código
 session_start();

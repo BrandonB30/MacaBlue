@@ -1,0 +1,20 @@
+{
+    "name": "macablue/tienda",
+    "description": "Tienda de ropa online MacaBlue",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "MacaBlue\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MacaBlue Team"
+        }
+    ],
+    "minimum-stability": "stable"
+} 

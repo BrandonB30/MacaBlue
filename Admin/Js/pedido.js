@@ -50,23 +50,34 @@ function actualizarEstadoPedido(pedidoId, estado) {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            Swal.fire({
-                icon: 'success',
-                title: 'Estado actualizado',
-                text: 'El estado del pedido ha sido actualizado correctamente',
-                timer: 2000,
-                showConfirmButton: false
-            }).then(() => {
-                location.reload(); // Recargar la página
-            });
-        } else {
+    .then(async response => {
+        const text = await response.text();
+        try {
+            const data = JSON.parse(text);
+            if (data.status === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Estado actualizado',
+                    text: 'El estado del pedido ha sido actualizado correctamente',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    location.reload();
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message || 'No se pudo actualizar el estado'
+                });
+            }
+        } catch (e) {
+            // Mostrar el error HTML recibido
+            console.error('Respuesta inesperada:', text);
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
-                text: data.message || 'No se pudo actualizar el estado'
+                title: 'Error inesperado',
+                html: '<pre style="text-align:left">' + text + '</pre>'
             });
         }
     })
@@ -86,27 +97,38 @@ function eliminarPedido(pedidoId) {
     formData.append('action', 'eliminarPedido');
     formData.append('pedido_id', pedidoId);
 
-    fetch('../controller/controller-pedidos.php', {
+    fetch('../controller/pedidoController.php', {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            Swal.fire({
-                icon: 'success',
-                title: 'Pedido eliminado',
-                text: 'El pedido ha sido eliminado correctamente',
-                timer: 2000,
-                showConfirmButton: false
-            }).then(() => {
-                location.reload(); // Recargar la página
-            });
-        } else {
+    .then(async response => {
+        const text = await response.text();
+        try {
+            const data = JSON.parse(text);
+            if (data.status === "success") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Pedido eliminado',
+                    text: 'El pedido ha sido eliminado correctamente',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    location.reload();
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message || 'No se pudo eliminar el pedido'
+                });
+            }
+        } catch (e) {
+            // Mostrar el error HTML recibido
+            console.error('Respuesta inesperada:', text);
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
-                text: data.message || 'No se pudo eliminar el pedido'
+                title: 'Error inesperado',
+                html: '<pre style="text-align:left">' + text + '</pre>'
             });
         }
     })

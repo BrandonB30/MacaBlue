@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 // Incluir controlador
 require_once '../controller/pedidoController.php';
 require_once '../middleware/AuthMiddleware.php';
@@ -31,35 +34,29 @@ $estados = $controller->getEstados();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         /* Estilos para las etiquetas de estado */
-        .badge-pendiente {
-            background-color: #6c757d;
-            color: white;
+        .badge-estado {
+            min-width: 110px;
+            display: inline-block;
+            text-align: center;
+            font-size: 1rem;
             padding: 5px 10px;
             border-radius: 4px;
         }
         .badge-en_proceso {
             background-color: #ffc107;
             color: black;
-            padding: 5px 10px;
-            border-radius: 4px;
         }
         .badge-enviado {
             background-color: #17a2b8;
             color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
         }
         .badge-entregado {
             background-color: #28a745;
             color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
         }
         .badge-cancelado {
             background-color: #dc3545;
             color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
         }
     </style>
 </head>
@@ -99,7 +96,7 @@ $estados = $controller->getEstados();
                                             <td><?= $pedido['pedido_id'] ?></td>
                                             <td><?= date('d/m/Y H:i', strtotime($pedido['fecha_pedido'])) ?></td>
                                             <td>
-                                                <span class="badge-<?= $pedido['estado'] ?>">
+                                                <span class="badge-estado badge-<?= $pedido['estado'] ?>">
                                                     <?= Pedido::getEstadoTexto($pedido['estado']) ?>
                                                 </span>
                                             </td>    
